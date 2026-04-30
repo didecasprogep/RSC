@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RSC-PCCTAE — Pró-Reitoria de Gestão de Pessoas · UFMA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#333;background:#f5f5f5;line-height:1.6}
+a{color:#7a0330;text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ===== BARRA DO GOVERNO ===== */
+#barra-brasil{background:#7f7f7f;height:22px;padding:0 10px;display:flex;align-items:center}
+#barra-brasil a{color:#fff;font-size:11px;font-family:sans-serif}
+#barra-brasil ul{list-style:none;display:flex;gap:16px}
+#barra-brasil li+li{padding-left:16px;border-left:1px solid #ededed}
+
+/* ===== HEADER ===== */
+#main-header{background:#8c0434}
+.header-wrapper{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:1200px;margin:0 auto}
+#portal-logo{display:flex;flex-direction:column;color:#fff;line-height:1.2}
+#portal-title-1{font-size:12px;font-weight:400;opacity:.9;letter-spacing:.5px;text-transform:uppercase}
+#portal-title{font-size:26px;font-weight:700;letter-spacing:.5px}
+#portal-description{font-size:11px;opacity:.8;margin-top:2px}
+.header-right{display:flex;align-items:center;gap:20px}
+.header-search input[type=text]{padding:5px 10px;border:none;border-radius:3px;font-size:12px;width:180px}
+.header-search button{background:#7a0330;color:#fff;border:none;padding:5px 12px;border-radius:3px;font-size:12px;cursor:pointer}
+.acessibilidade{display:flex;gap:10px}
+.acessibilidade a{color:#fff;font-size:11px;opacity:.8;border:1px solid rgba(255,255,255,.3);padding:2px 7px;border-radius:2px}
+
+/* ===== NAVIGATION ===== */
+#main-navigation-bar{background:#7a0330;border-top:2px solid #6a0326}
+.nav-inner{max-width:1200px;margin:0 auto}
+#main-navigation-bar ul{list-style:none;display:flex;flex-wrap:wrap}
+#main-navigation-bar > .nav-inner > ul > li > a{display:block;padding:10px 16px;color:#fff;font-size:13px;font-weight:400;white-space:nowrap;transition:background .15s}
+#main-navigation-bar > .nav-inner > ul > li:hover > a,
+#main-navigation-bar > .nav-inner > ul > li.selected > a{background:#6a0326}
+#main-navigation-bar > .nav-inner > ul > li{position:relative}
+#main-navigation-bar > .nav-inner > ul > li:hover .submenu{display:block}
+.submenu{display:none;position:absolute;top:100%;left:0;background:#6a0326;min-width:240px;z-index:100;border-top:2px solid #ffcc00;box-shadow:2px 4px 8px rgba(0,0,0,.2)}
+.submenu li a{display:block;padding:8px 16px;color:#fff;font-size:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.submenu li a:hover{background:#4a0118;text-decoration:none}
+.selected > a{background:#6a0326 !important}
+
+/* ===== BREADCRUMB ===== */
+#breadcrumbs{background:#e8e8e8;border-bottom:1px solid #d0d0d0;padding:6px 20px;font-size:12px;color:#555;max-width:100%}
+#breadcrumbs .inner{max-width:1200px;margin:0 auto}
+#breadcrumbs a{color:#7a0330}
+#breadcrumbs .sep{margin:0 5px;color:#999}
+#breadcrumbs .current{color:#555;font-weight:500}
+
+/* ===== SHARE BAR ===== */
+.share-bar{background:#fff;border-bottom:1px solid #ddd;padding:6px 20px;font-size:12px}
+.share-bar .inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;color:#777}
+.share-btn{background:#f0f0f0;border:1px solid #ddd;padding:3px 10px;border-radius:2px;font-size:11px;color:#555;cursor:pointer}
+
+/* ===== MAIN LAYOUT ===== */
+#wrapper{max-width:1200px;margin:0 auto;padding:0 20px 40px}
+
+/* ===== ALERTA/AVISO ===== */
+.aviso-novo{background:#fff3cd;border-left:4px solid #ffcc00;padding:10px 16px;margin:16px 0;border-radius:2px;font-size:13px;color:#664d03}
+.aviso-novo strong{color:#5a4200}
+
+/* ===== HEADER TILE (verde escuro, faixa principal) ===== */
+.cabecalho-principal{background:#8c0434;color:#fff;padding:22px 24px;margin:16px 0 0;border-radius:2px}
+.cabecalho-principal h1{font-size:24px;font-weight:700;letter-spacing:.3px;margin-bottom:6px}
+.cabecalho-principal p{font-size:14px;opacity:.9;max-width:800px;line-height:1.6}
+.badge-novo{display:inline-block;background:#ffcc00;color:#8c0434;font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;letter-spacing:.5px;vertical-align:middle;margin-left:10px}
+
+/* ===== DESCRICAO INTRO ===== */
+.intro-tile{background:#fff;border:1px solid #e0e0e0;padding:16px 20px;margin-bottom:20px;font-size:14px;line-height:1.7;border-left:4px solid #7a0330}
+.intro-tile p{margin-bottom:8px}
+.intro-tile p:last-child{margin-bottom:0}
+.intro-tile strong{color:#8c0434}
+
+/* ===== TITULO DE SEÇÃO (estilo linha discreta) ===== */
+.section-title-bar{background:#faeaef;border-left:4px solid #7a0330;padding:10px 16px;margin:24px 0 12px;font-size:15px;font-weight:700;color:#8c0434;text-transform:uppercase;letter-spacing:.5px}
+
+/* ===== MENU TILES (quadradinhos) ===== */
+.menu-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin:16px 0 24px}
+.menu-tile{background:#fff;border:1px solid #d0d0d0;border-top:3px solid #8c0434;padding:14px 10px;text-align:center;border-radius:2px;transition:border-color .15s,box-shadow .15s;cursor:pointer}
+.menu-tile:hover{border-top-color:#ffcc00;box-shadow:0 2px 6px rgba(0,0,0,.1);text-decoration:none}
+.menu-tile .icon{font-size:22px;margin-bottom:6px;display:block}
+.menu-tile h3{font-size:12px;font-weight:600;color:#8c0434;line-height:1.3}
+.menu-tile a{color:#8c0434;font-size:12px;font-weight:600;line-height:1.3}
+.menu-tile a:hover{text-decoration:none}
+
+/* ===== CONTENT SECTION ===== */
+.content-section{background:#fff;border:1px solid #e0e0e0;padding:20px 24px;margin-bottom:16px;border-radius:2px}
+.content-section h2{font-size:17px;font-weight:700;color:#8c0434;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #faeaef}
+.content-section h3{font-size:14px;font-weight:600;color:#8c0434;margin:14px 0 6px}
+.content-section p{font-size:14px;margin-bottom:10px;line-height:1.7}
+.content-section ul,
+.content-section ol{margin:8px 0 12px 20px;font-size:14px}
+.content-section li{margin-bottom:4px;line-height:1.6}
+
+/* ===== PASSOS ===== */
+.passos{counter-reset:passo;margin:12px 0}
+.passo{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
+.passo-num{background:#8c0434;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.passo-body{flex:1}
+.passo-body strong{display:block;font-size:14px;color:#8c0434;margin-bottom:2px}
+.passo-body p{font-size:13px;color:#555;margin:0}
+
+/* ===== LEGISLAÇÃO TABLE ===== */
+.leg-table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+.leg-table th{background:#8c0434;color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.leg-table td{padding:8px 12px;border-bottom:1px solid #e8e8e8;vertical-align:top}
+.leg-table tr:hover td{background:#fdf5f8}
+.leg-table .status-ok{color:#7a0330;font-weight:600}
+.leg-table .status-pend{color:#996600;font-weight:600}
+.leg-table .status-ela{color:#0066cc;font-weight:600}
+.leg-table a{color:#7a0330;text-decoration:underline}
+
+/* ===== DOCUMENTOS GRID ===== */
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0}
+.doc-card{border:1px solid #d0d0d0;border-radius:3px;padding:14px;background:#fafafa;display:flex;flex-direction:column;gap:6px;transition:box-shadow .15s}
+.doc-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.doc-card .doc-icon{font-size:20px}
+.doc-card .doc-title{font-size:13px;font-weight:600;color:#8c0434;line-height:1.3}
+.doc-card .doc-desc{font-size:11px;color:#777;line-height:1.4;flex:1}
+.doc-card .doc-link{display:inline-block;background:#7a0330;color:#fff;font-size:11px;padding:4px 10px;border-radius:2px;margin-top:4px;text-align:center}
+.doc-card .doc-link:hover{background:#6a0326;text-decoration:none}
+.doc-card .doc-em-breve{display:inline-block;background:#e8e8e8;color:#777;font-size:11px;padding:4px 10px;border-radius:2px;margin-top:4px;text-align:center;font-style:italic}
+
+/* ===== SISTEMA CARD ===== */
+.sistema-box{background:#faeaef;border:1px solid #e8b0c4;border-radius:3px;padding:20px 24px;margin:12px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sistema-box h3{font-size:14px;font-weight:700;color:#8c0434;margin-bottom:8px}
+.sistema-box p{font-size:13px;color:#444;margin-bottom:10px}
+.btn-sistema{display:inline-block;background:#8c0434;color:#fff;padding:9px 20px;border-radius:3px;font-size:13px;font-weight:600;transition:background .15s}
+.btn-sistema:hover{background:#6a0326;text-decoration:none}
+.btn-acompanhar{display:inline-block;.btn-sistema{display:inline-block;background:#8c0434 20px;border-radius:3px;font-size:13px;font-weight:600;transition:background .15s}
+.btn-acompanhar:hover{background:#6a0326;text-decoration:none}
+
+/* ===== COMISSÃO ===== */
+.comissao-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+.comissao-card{background:#f9f9f9;border:1px solid #e0e0e0;border-radius:3px;padding:14px 16px}
+.comissao-card h4{font-size:13px;font-weight:700;color:#8c0434;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #faeaef}
+.comissao-card p,
+.comissao-card li{font-size:13px;color:#444;margin-bottom:4px}
+.comissao-card ul{margin-left:16px}
+.comissao-card a{color:#7a0330}
+.contato-box{background:#faeaef;border-radius:3px;padding:14px 16px;grid-column:1/-1;display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.contato-item{font-size:13px;color:#333}
+.contato-item strong{display:block;color:#8c0434;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+
+/* ===== FAQ ===== */
+.faq-item{border:1px solid #e0e0e0;margin-bottom:6px;border-radius:2px;overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:#faeaef;cursor:pointer;font-size:13px;font-weight:600;color:#8c0434;user-select:none}
+.faq-q:hover{background:#f5d5e0}
+.faq-q .arrow{transition:transform .2s;font-size:11px;flex-shrink:0;margin-left:10px}
+.faq-q.open .arrow{transform:rotate(90deg)}
+.faq-a{display:none;padding:12px 16px;font-size:13px;color:#444;line-height:1.7;border-top:1px solid #faeaef;background:#fff}
+.faq-a.open{display:block}
+
+/* ===== ATENDIMENTO ===== */
+.atend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:12px 0}
+.atend-card{background:#fff;border:1px solid #d0d0d0;border-top:3px solid #ffcc00;padding:14px 16px;border-radius:2px}
+.atend-card .atend-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#996600;margin-bottom:6px}
+.atend-card p,
+.atend-card a{font-size:13px;color:#333;line-height:1.5}
+.atend-card a{color:#7a0330}
+
+/* ===== FOOTER ===== */
+footer{background:#6a0326;color:#fff;margin-top:30px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:20px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
+.footer-col h4{font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;color:#f0c8d8;font-weight:600}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:5px}
+.footer-col a{color:#f0c8d8;font-size:12px}
+.footer-col a:hover{color:#fff}
+.footer-bottom{background:#4a0118;text-align:center;padding:8px;font-size:11px;color:rgba(255,255,255,.6)}
+
+/* ===== VERSAO NOTA ===== */
+.versao-nota{background:#fff3cd;border:1px dashed #ffcc00;border-radius:3px;padding:10px 16px;font-size:12px;color:#664d03;margin:16px 0 4px;font-style:italic}
+
+@media(max-width:700px){
+  .sistema-box,.comissao-grid{grid-template-columns:1fr}
+  .contato-box{grid-column:1/-1}
+  .menu-tiles{grid-template-columns:repeat(3,1fr)}
+  .header-wrapper{flex-direction:column;align-items:flex-start;gap:10px}
+  #portal-title{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- BARRA DO GOVERNO -->
+<div id="barra-brasil">
+  <ul>
+    <li><a href="http://brasil.gov.br">Portal do Governo Brasileiro</a></li>
+    <li><a href="#">Atualize sua Barra de Governo</a></li>
+  </ul>
+</div>
+
+<!-- SKIP MENU -->
+<ul id="skip-menu" style="list-style:none;height:0;overflow:hidden">
+  <li><a href="#content">Ir para o conteúdo</a></li>
+  <li><a href="#main-navigation">Ir para o menu</a></li>
+</ul>
+
+<!-- HEADER -->
+<header id="main-header">
+  <div class="header-wrapper">
+    <a href="https://portalpadrao.ufma.br/progep" id="portal-logo" style="text-decoration:none">
+      <span id="portal-title-1">Pró-Reitoria de</span>
+      <div id="portal-title">Gestão de Pessoas</div>
+      <span id="portal-description">Universidade Federal do Maranhão</span>
+    </a>
+    <div class="header-right">
+      <div class="acessibilidade">
+        <a href="#">Alto Contraste</a>
+        <a href="http://www.vlibras.gov.br/">VLibras</a>
+      </div>
+      <div class="header-search">
+        <input type="text" placeholder="Buscar no portal"/>
+        <button>Buscar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVEGAÇÃO PRINCIPAL -->
+  <div id="main-navigation-bar">
+    <div class="nav-inner">
+      <ul id="main-navigation">
+        <li><a href="https://portalpadrao.ufma.br/progep/a-pro-reitoria">A Pró-Reitoria</a>
+          <ul class="submenu">
+            <li><a href="#">Sobre a PROGEP</a></li>
+            <li><a href="#">Contatos</a></li>
+            <li><a href="#">Viva Saudável</a></li>
+          </ul>
+        </li>
+        <li><a href="https://portalpadrao.ufma.br/progep/DEPARTAMENTOS">Departamentos</a>
+          <ul class="submenu">
+            <li><a href="#">Gabinete</a></li>
+            <li><a href="#">DIPLAD</a></li>
+            <li><a href="#">DIGEP</a></li>
+            <li><a href="#">Diretoria de Desempenho, Carreira e Saúde</a></li>
+          </ul>
+        </li>
+        <li><a href="https://portalpadrao.ufma.br/progep/programa-de-gestao">Programa de Gestão</a></li>
+        <li class="selected"><a href="https://portalpadrao.ufma.br/progep/servicos-de-rh">Serviços de RH</a>
+          <ul class="submenu">
+            <li><a href="#">Legislação</a></li>
+            <li><a href="#">Concursos</a></li>
+            <li><a href="#">Avaliação de Desempenho</a></li>
+            <li><a href="#">Quadro de Referência dos TAEs</a></li>
+            <li><a href="#" style="color:#ffcc00;font-weight:600">RSC-PCCTAE ►</a></li>
+          </ul>
+        </li>
+        <li><a href="https://portalpadrao.ufma.br/progep/tabelas-salariais">Tabelas Salariais</a></li>
+        <li><a href="https://portalpadrao.ufma.br/progep/capacitacao">Capacitação</a></li>
+        <li><a href="https://portalpadrao.ufma.br/progep/noticias">Notícias</a></li>
+        <li><a href="https://portalpadrao.ufma.br/progep/plano-de-desenvolvimento-de-pessoas-pdp">PDP</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div id="breadcrumbs">
+  <div class="inner">
+    <span>Você está aqui:</span>
+    <a href="https://portalpadrao.ufma.br/progep">Página Inicial</a>
+    <span class="sep">›</span>
+    <a href="https://portalpadrao.ufma.br/progep/servicos-de-rh">Serviços de RH</a>
+    <span class="sep">›</span>
+    <span class="current">RSC-PCCTAE</span>
+  </div>
+</div>
+
+<!-- SHARE BAR -->
+<div class="share-bar">
+  <div class="inner">
+    <span>Compartilhar:</span>
+    <span class="share-btn">Facebook</span>
+    <span class="share-btn">Twitter</span>
+    <span class="share-btn">E-mail</span>
+    <span class="share-btn">Copiar link</span>
+  </div>
+</div>
+
+<!-- WRAPPER PRINCIPAL -->
+<div id="wrapper">
+  <div id="content">
+
+    <!-- AVISO PRELIMINAR -->
+    <div class="versao-nota">
+      &#9432; <strong>Versão preliminar</strong> — Esta página está em construção. Os documentos, formulários e links para o sistema estarão disponíveis após a publicação do Decreto regulamentador e a instauração da CRSC-PCCTAE na UFMA. Atualização prevista: [data].
+    </div>
+
+    <!-- AVISO DE VIGÊNCIA -->
+    <div class="aviso-novo">
+      <strong>&#9888; Novidade:</strong> O RSC-PCCTAE foi formalmente instituído pela <strong>Lei nº 15.367, de 30 de março de 2026</strong>, com vigência a partir de 1º de abril de 2026. O Decreto regulamentador está em tramitação no Governo Federal. Acompanhe as atualizações nesta página.
+    </div>
+
+    <!-- CABEÇALHO PRINCIPAL -->
+    <div class="cabecalho-principal">
+      <h1>Reconhecimento de Saberes e Competências — RSC-PCCTAE <span class="badge-novo">NOVO</span></h1>
+      <p>Mecanismo de reconhecimento dos conhecimentos e habilidades desenvolvidas ao longo da trajetória profissional dos servidores integrantes do Plano de Carreira dos Cargos Técnico-Administrativos em Educação (PCCTAE) nas Instituições Federais de Ensino.</p>
+    </div>
+
+    <!-- TEXTO INTRODUTÓRIO -->
+    <div class="intro-tile">
+      <p>O <strong>RSC-PCCTAE</strong> é um instrumento de desenvolvimento e valorização dos servidores técnico-administrativos em educação que permite o reconhecimento formal de saberes e competências adquiridos no exercício do cargo, refletindo nos benefícios da carreira. Na UFMA, sua implementação está sendo coordenada pela <strong>PROGEP</strong> em parceria com a <strong>Comissão Interna de Supervisão (CIS)</strong>.</p>
+      <p>Para acessar as informações sobre legislação, requisitos, formulários, sistema de protocolo e atendimento da Comissão, utilize o menu abaixo ou navegue pelas seções desta página.</p>
+    </div>
+
+    <!-- MENU TILES DE NAVEGAÇÃO RÁPIDA -->
+    <div class="section-title-bar">Acesso Rápido</div>
+    <div class="menu-tiles">
+      <div class="menu-tile"><span class="icon">📋</span><a href="#o-que-e">O que é o RSC</a></div>
+      <div class="menu-tile"><span class="icon">⚖️</span><a href="#legislacao">Legislação</a></div>
+      <div class="menu-tile"><span class="icon">✅</span><a href="#requisitos">Requisitos</a></div>
+      <div class="menu-tile"><span class="icon">📝</span><a href="#como-solicitar">Como solicitar</a></div>
+      <div class="menu-tile"><span class="icon">📂</span><a href="#documentos">Documentos e Guias</a></div>
+      <div class="menu-tile"><span class="icon">💻</span><a href="#sistema">Sistema/SEI</a></div>
+      <div class="menu-tile"><span class="icon">👥</span><a href="#comissao">Comissão (CRSC)</a></div>
+      <div class="menu-tile"><span class="icon">❓</span><a href="#faq">Perguntas Frequentes</a></div>
+      <div class="menu-tile"><span class="icon">📞</span><a href="#atendimento">Contato e Atendimento</a></div>
+    </div>
+
+    <!-- 1. O QUE É -->
+    <a id="o-que-e"></a>
+    <div class="section-title-bar">O que é o RSC-PCCTAE?</div>
+    <div class="content-section">
+      <p>O <strong>Reconhecimento de Saberes e Competências para o Plano de Carreira dos Cargos Técnico-Administrativos em Educação (RSC-PCCTAE)</strong> é um processo de reconhecimento dos conhecimentos e habilidades desenvolvidos a partir da <strong>experiência individual e profissional</strong>, bem como das atividades realizadas no ambiente de trabalho, pelos servidores integrantes do PCCTAE.</p>
+      <p>O RSC é concedido mediante avaliação de memorial descritivo e documentação comprobatória apresentados pelo servidor, e produz efeitos sobre o <strong>Incentivo à Qualificação</strong>, incidindo a partir da data de deferimento do pedido pela comissão avaliadora.</p>
+      <h3>Níveis do RSC</h3>
+      <ul>
+        <li><strong>RSC-I</strong> — Pontuação mínima: 10 pontos (critérios específicos conforme Decreto)</li>
+        <li><strong>RSC-II</strong> — Pontuação mínima: 15 pontos</li>
+        <li><strong>RSC-III</strong> — Pontuação mínima: 25 pontos</li>
+        <li><strong>RSC-IV</strong> — Pontuação mínima: 30 pontos</li>
+        <li><strong>RSC-V</strong> — Pontuação mínima: 52 pontos</li>
+        <li><strong>RSC-VI</strong> — Pontuação mínima: 75 pontos</li>
+      </ul>
+      <p style="font-size:12px;color:#777;margin-top:8px">* A pontuação exata por nível e os critérios de avaliação serão definidos no Decreto regulamentador federal, em fase de publicação.</p>
+    </div>
+
+    <!-- 2. LEGISLAÇÃO -->
+    <a id="legislacao"></a>
+    <div class="section-title-bar">Legislação e Normas</div>
+    <div class="content-section">
+      <table class="leg-table">
+        <tr>
+          <th>Documento</th>
+          <th>Descrição</th>
+          <th>Status</th>
+          <th>Acesso</th>
+        </tr>
+        <tr>
+          <td><strong>Lei nº 15.367/2026</strong></td>
+          <td>Institui o RSC-PCCTAE; altera a Lei nº 11.091/2005 — arts. 12-B a 12-I</td>
+          <td><span class="status-ok">✔ Vigente (1º/abr/2026)</span></td>
+          <td><a href="#" target="_blank">Acessar ↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Lei nº 11.091/2005</strong></td>
+          <td>Dispõe sobre o PCCTAE nas Instituições Federais de Ensino Superior</td>
+          <td><span class="status-ok">✔ Vigente</span></td>
+          <td><a href="https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11091.htm" target="_blank">Acessar ↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Decreto Regulamentador</strong></td>
+          <td>Estabelece critérios, pontuação, procedimentos, composição e funcionamento da CRSC-PCCTAE</td>
+          <td><span class="status-pend">⏳ Em tramitação</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Portaria UFMA nº [XX/2026]</strong></td>
+          <td>Constituição da Comissão de Reconhecimento de Saberes e Competências (CRSC-PCCTAE) da UFMA</td>
+          <td><span class="status-ela">✏ Em elaboração</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Resolução UFMA nº [XX/2026]</strong></td>
+          <td>Normas internas de funcionamento da CRSC-PCCTAE; fluxos, prazos e procedimentos</td>
+          <td><span class="status-ela">✏ Em elaboração</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Relatório GT RSC/TAE – CNSC nº 01/2025</strong></td>
+          <td>Relatório técnico com proposta de decreto elaborada pelo Grupo de Trabalho da CNS</td>
+          <td><span class="status-ok">✔ Disponível</span></td>
+          <td><a href="#" target="_blank">Acessar ↗</a></td>
+        </tr>
+      </table>
+      <p style="font-size:12px;color:#777;margin-top:8px">Esta tabela será atualizada conforme publicação dos instrumentos normativos. Última atualização: abril/2026.</p>
+    </div>
+
+    <!-- 3. REQUISITOS -->
+    <a id="requisitos"></a>
+    <div class="section-title-bar">Requisitos para Concessão</div>
+    <div class="content-section">
+      <h3>Requisitos gerais (art. 12-D da Lei nº 11.091/2005)</h3>
+      <ul>
+        <li>Ser servidor <strong>estável</strong> integrante do PCCTAE</li>
+        <li>Ter cumprido o <strong>interstício mínimo</strong> previsto na legislação entre concessões sucessivas</li>
+        <li>Comprovar <strong>saberes e competências diferenciados</strong> que qualificam a execução das atribuições do cargo, por meio de memorial descritivo e documentação comprobatória</li>
+      </ul>
+      <h3>O que pode ser computado (atividades válidas)</h3>
+      <p>Somente serão reconhecidas <strong>atividades desenvolvidas no exercício do cargo</strong>, que se relacionem diretamente com os saberes e competências exigidos para sua atuação, tais como:</p>
+      <ul>
+        <li>Participação em programas de formação continuada e ações de desenvolvimento de competências</li>
+        <li>Participação em congressos, simpósios, fóruns, colóquios, conferências, workshops, seminários, mostra, feiras, treinamentos e atividades de apoio técnico</li>
+        <li>Exercício de função gratificada</li>
+        <li>Atuação em comissões e grupos de trabalho institucionais</li>
+        <li>Outras atividades previstas nos critérios específicos do Decreto regulamentador</li>
+      </ul>
+      <h3>O que NÃO é considerado</h3>
+      <ul>
+        <li>Atividades que fazem parte das atribuições regulares do cargo (parte obrigatória do trabalho diário)</li>
+        <li>Atividades realizadas fora do exercício do cargo</li>
+        <li>Fatos já utilizados em concessão anterior (vedada a duplicidade)</li>
+      </ul>
+      <h3>Sobre os efeitos financeiros</h3>
+      <p>Os efeitos financeiros sobre o <strong>Incentivo à Qualificação</strong> incidem a partir da <strong>data de deferimento</strong> do pedido pela CRSC-PCCTAE, não havendo retroatividade à data do requerimento. Exceção: caso a análise ultrapasse o prazo de 120 dias, os efeitos retroagem ao término deste prazo.</p>
+    </div>
+
+    <!-- 4. COMO SOLICITAR -->
+    <a id="como-solicitar"></a>
+    <div class="section-title-bar">Como solicitar o RSC-PCCTAE</div>
+    <div class="content-section">
+      <div class="passos">
+        <div class="passo">
+          <div class="passo-num">1</div>
+          <div class="passo-body">
+            <strong>Verifique se atende aos requisitos</strong>
+            <p>Confirme seu vínculo estável com o PCCTAE e o interstício mínimo exigido. Consulte a tabela de pontuação mínima para o nível desejado.</p>
+          </div>
+        </div>
+        <div class="passo">
+          <div class="passo-num">2</div>
+          <div class="passo-body">
+            <strong>Elabore seu memorial descritivo</strong>
+            <p>O memorial deve descrever sua trajetória profissional e demonstrar os saberes, competências e experiências relacionadas ao nível pleiteado. Utilize o modelo disponível nesta página.</p>
+          </div>
+        </div>
+        <div class="passo">
+          <div class="passo-num">3</div>
+          <div class="passo-body">
+            <strong>Reúna a documentação comprobatória</strong>
+            <p>Organize os documentos que comprovam as atividades listadas no memorial, conforme a lista oficial (Anexo III do Decreto). Digitalize todos os documentos.</p>
+          </div>
+        </div>
+        <div class="passo">
+          <div class="passo-num">4</div>
+          <div class="passo-body">
+            <strong>Preencha o formulário de requerimento</strong>
+            <p>Acesse o formulário eletrônico disponível nesta página (em breve) ou diretamente no SEI, processo tipo "RSC-PCCTAE — Requerimento de Concessão".</p>
+          </div>
+        </div>
+        <div class="passo">
+          <div class="passo-num">5</div>
+          <div class="passo-body">
+            <strong>Protocole via SEI</strong>
+            <p>Abra ou acesse o processo no SEI e anexe o requerimento, o memorial e toda a documentação comprobatória. O número do processo será seu comprovante de protocolo.</p>
+          </div>
+        </div>
+        <div class="passo">
+          <div class="passo-num">6</div>
+          <div class="passo-body">
+            <strong>Acompanhe a análise pela CRSC-PCCTAE</strong>
+            <p>A Comissão tem até <strong>120 dias</strong> a partir do protocolo para concluir a análise. Você poderá ser chamado para complementar documentação. Acompanhe pelo SEI ou pelo canal de atendimento da CRSC.</p>
+          </div>
+        </div>
+        <div class="passo">
+          <div class="passo-num">7</div>
+          <div class="passo-body">
+            <strong>Receba a decisão — e recorra se necessário</strong>
+            <p>A decisão (deferimento ou indeferimento fundamentado) será publicada em resolução da CRSC. Em caso de indeferimento, você tem <strong>30 dias</strong> para interpor recurso junto à própria Comissão.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. DOCUMENTOS -->
+    <a id="documentos"></a>
+    <div class="section-title-bar">Documentos e Formulários</div>
+    <div class="content-section">
+      <p>Os documentos abaixo estarão disponíveis para download após a publicação do Decreto regulamentador e a instauração formal da CRSC-PCCTAE na UFMA.</p>
+      <div class="docs-grid">
+        <div class="doc-card">
+          <div class="doc-icon">📄</div>
+          <div class="doc-title">Formulário de requerimento de concessão do RSC</div>
+          <div class="doc-desc">Formulário-padrão para protocolo do pedido de concessão do RSC-PCCTAE via SEI</div>
+          <span class="doc-em-breve">Em breve</span>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">📝</div>
+          <div class="doc-title">Modelo de memorial descritivo</div>
+          <div class="doc-desc">Modelo estruturado para elaboração do memorial de trajetória profissional</div>
+          <span class="doc-em-breve">Em breve</span>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">📋</div>
+          <div class="doc-title">Lista de documentos comprobatórios</div>
+          <div class="doc-desc">Relação oficial dos documentos aceitos para comprovação dos saberes e competências (Anexo III)</div>
+          <span class="doc-em-breve">Em breve</span>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">📘</div>
+          <div class="doc-title">Cartilha RSC-PCCTAE/UFMA</div>
+          <div class="doc-desc">Guia explicativo sobre o RSC: o que é, quem tem direito, como funciona e o que muda na carreira</div>
+          <span class="doc-em-breve">Em breve</span>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">📊</div>
+          <div class="doc-title">Tabela de critérios e pontuação</div>
+          <div class="doc-desc">Relação dos critérios específicos e pontuação por nível de RSC (Anexos I e II do Decreto)</div>
+          <span class="doc-em-breve">Em breve</span>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">⚖️</div>
+          <div class="doc-title">Legislação compilada RSC</div>
+          <div class="doc-desc">Compilação dos textos legais relevantes: Lei nº 15.367/2026, Lei nº 11.091/2005 e Decreto</div>
+          <span class="doc-em-breve">Em breve</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. SISTEMA -->
+    <a id="sistema"></a>
+    <div class="section-title-bar">Sistema de Protocolo e Acompanhamento</div>
+    <div class="content-section">
+      <div class="sistema-box">
+        <div>
+          <h3>&#128196; Protocolar requerimento RSC (SEI)</h3>
+          <p>O requerimento deve ser protocolado eletronicamente pelo Sistema Eletrônico de Informações (SEI) da UFMA. Acesse com seu login institucional, abra processo do tipo "RSC-PCCTAE" e anexe o memorial e a documentação.</p>
+          <a href="#" class="btn-sistema">Acessar o SEI ↗</a>
+        </div>
+        <div>
+          <h3>&#128269; Acompanhar situação do processo</h3>
+          <p>Servidores já protocolados podem acompanhar o andamento do processo diretamente no SEI ou, quando disponível, pelo painel de acompanhamento RSC nesta página.</p>
+          <a href="#" class="btn-acompanhar">Consultar processo ↗</a>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#777;margin-top:8px">&#9432; O sistema específico de acompanhamento da CRSC-PCCTAE está em desenvolvimento. Até sua disponibilização, utilize o SEI para consultas.</p>
+    </div>
+
+    <!-- 7. COMISSÃO -->
+    <a id="comissao"></a>
+    <div class="section-title-bar">Comissão de Reconhecimento — CRSC-PCCTAE/UFMA</div>
+    <div class="content-section">
+      <p>A <strong>CRSC-PCCTAE</strong> é a comissão responsável pela análise dos pedidos de concessão do RSC na UFMA. Nos termos do Decreto regulamentador, será composta por membros indicados de forma paritária pelos três segmentos abaixo:</p>
+      <div class="comissao-grid">
+        <div class="comissao-card">
+          <h4>Composição</h4>
+          <ul>
+            <li>Membros indicados pelo <strong>Conselho Superior/CONSUN</strong></li>
+            <li>Membros indicados pela <strong>Comissão Interna de Supervisão (CIS-PCCTAE)</strong></li>
+            <li>Membros indicados pela <strong>PROGEP/Gestão de Pessoas</strong></li>
+          </ul>
+          <p style="margin-top:8px;font-size:12px;color:#777">Mínimo 3 e máximo 9 membros titulares com respectivos suplentes. Mandato de 2 anos, prorrogável uma vez.</p>
+        </div>
+        <div class="comissao-card">
+          <h4>Competências da Comissão</h4>
+          <ul>
+            <li>Definir fluxos e procedimentos internos</li>
+            <li>Analisar memoriais no prazo de até 120 dias</li>
+            <li>Verificar a documentação comprobatória</li>
+            <li>Deferir ou indeferir fundamentadamente</li>
+            <li>Publicar resolução de concessão</li>
+            <li>Registrar e consolidar informações</li>
+          </ul>
+        </div>
+        <div class="contato-box">
+          <div class="contato-item">
+            <strong>E-mail</strong>
+            <a href="mailto:crsc.rsc@ufma.br">crsc.rsc@ufma.br</a>
+          </div>
+          <div class="contato-item">
+            <strong>Telefone</strong>
+            <span>(98) 3272-[XXXX]</span>
+          </div>
+          <div class="contato-item">
+            <strong>Localização</strong>
+            <span>PROGEP — Campus Dom Delgado, São Luís/MA</span>
+          </div>
+          <div class="contato-item">
+            <strong>Portaria de constituição</strong>
+            <span>Em elaboração (prazo: 30 dias após Decreto)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. FAQ -->
+    <a id="faq"></a>
+    <div class="section-title-bar">Perguntas Frequentes</div>
+    <div class="content-section">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">O RSC-PCCTAE gera efeito financeiro retroativo? <span class="arrow">▶</span></div>
+        <div class="faq-a">Não. Os efeitos financeiros sobre o Incentivo à Qualificação ocorrem a partir da <strong>data de deferimento</strong> do pedido pela CRSC-PCCTAE, e não retroagem à data do requerimento. Exceção: se a Comissão extrapolar o prazo de 120 dias, os efeitos retroagem ao término desse prazo.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Posso incluir certificados e atividades realizadas fora do serviço público? <span class="arrow">▶</span></div>
+        <div class="faq-a">Não. O RSC reconhece apenas <strong>atividades desenvolvidas no exercício do cargo</strong>, relacionadas diretamente com os saberes e competências exigidos para sua atuação. Atividades realizadas fora do contexto funcional não são computadas.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Qual o prazo para a Comissão analisar meu pedido? <span class="arrow">▶</span></div>
+        <div class="faq-a">A CRSC-PCCTAE tem até <strong>120 dias</strong> contados a partir do protocolo para concluir a análise. Se houver necessidade de complementação de documentação, o prazo é suspenso até a juntada dos documentos.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Posso usar os mesmos documentos em pedidos diferentes? <span class="arrow">▶</span></div>
+        <div class="faq-a">Não. Cada fato/atividade somente pode ser utilizado uma única vez. É <strong>vedada a duplicidade</strong> entre pedidos ou entre itens do mesmo pedido. Em caso de coincidência, prevalece o item definido pela Comissão mediante avaliação justificada.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Existe prazo mínimo entre concessões do RSC? <span class="arrow">▶</span></div>
+        <div class="faq-a">Sim. O interstício mínimo entre concessões será definido pelo Decreto regulamentador federal. Acompanhe a publicação do Decreto nesta página para obter a informação atualizada.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">O RSC é cumulativo com progressão por qualificação? <span class="arrow">▶</span></div>
+        <div class="faq-a">O RSC-PCCTAE é um mecanismo distinto das progressões funcionais e da retribuição por titulação. Suas regras de interação com outros benefícios da carreira estão sendo definidas no Decreto regulamentador. Para dúvidas específicas, consulte a PROGEP.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">O que acontece se meu pedido for indeferido? <span class="arrow">▶</span></div>
+        <div class="faq-a">A decisão de indeferimento deve ser fundamentada em critérios objetivos. O servidor tem <strong>30 dias</strong> a partir da ciência ou divulgação oficial da decisão para interpor recurso, nos termos da Lei nº 9.784/1999.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Quando a CRSC-PCCTAE da UFMA estará funcionando? <span class="arrow">▶</span></div>
+        <div class="faq-a">As instituições federais de ensino têm até <strong>30 dias após a publicação do Decreto regulamentador</strong> para instaurar a CRSC-PCCTAE, aprovar as normas internas e iniciar os procedimentos de análise. A PROGEP está em fase de preparação para o cumprimento desse prazo.</div>
+      </div>
+
+    </div>
+
+    <!-- 9. ATENDIMENTO -->
+    <a id="atendimento"></a>
+    <div class="section-title-bar">Contato e Atendimento</div>
+    <div class="content-section">
+      <div class="atend-grid">
+        <div class="atend-card">
+          <div class="atend-label">E-mail</div>
+          <p><a href="mailto:crsc.rsc@ufma.br">crsc.rsc@ufma.br</a><br/>(CRSC-PCCTAE)</p>
+          <p style="margin-top:6px"><a href="mailto:progep@ufma.br">progep@ufma.br</a><br/>(PROGEP geral)</p>
+        </div>
+        <div class="atend-card">
+          <div class="atend-label">Telefone</div>
+          <p>(98) 3272-8813<br/>(98) 3272-8814</p>
+        </div>
+        <div class="atend-card">
+          <div class="atend-label">Atendimento presencial</div>
+          <p>Sala da CRSC-PCCTAE<br/>PROGEP — Campus Dom Delgado<br/>São Luís — MA</p>
+        </div>
+        <div class="atend-card">
+          <div class="atend-label">Horário de atendimento</div>
+          <p>Segunda a sexta-feira<br/>08h às 12h | 14h às 17h<br/><span style="font-size:11px;color:#777">(A definir pela Comissão)</span></p>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#777;margin-top:12px">Para atendimento sobre aspectos específicos da análise do processo, aguarde a instauração formal da CRSC-PCCTAE e a divulgação do canal oficial de atendimento.</p>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /wrapper -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Pró-Reitoria de Gestão de Pessoas</h4>
+      <ul>
+        <li><a href="#">Sobre a PROGEP</a></li>
+        <li><a href="#">Contatos</a></li>
+        <li><a href="#">Departamentos</a></li>
+        <li><a href="#">Manual de Procedimentos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="#">Capacitação</a></li>
+        <li><a href="#">Tabelas Salariais</a></li>
+        <li><a href="#">Legislação</a></li>
+        <li><a href="#" style="color:#ffcc00">RSC-PCCTAE</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Links Úteis</h4>
+      <ul>
+        <li><a href="https://www.ufma.br">Portal UFMA</a></li>
+        <li><a href="#">SEI/UFMA</a></li>
+        <li><a href="#">SIAPE</a></li>
+        <li><a href="#">ENAP/Escolas de Governo</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Redes Sociais</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/progep.ufma">Instagram: @progep.ufma</a></li>
+      </ul>
+      <p style="margin-top:10px;font-size:11px;color:#e8a0bc">Pró-Reitoria de Gestão de Pessoas<br/>Universidade Federal do Maranhão</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 UFMA — Universidade Federal do Maranhão · Todos os direitos reservados · Proposta preliminar (versão beta)
+  </div>
+</footer>
+
+<script>
+function toggleFaq(el){
+  var a=el.nextElementSibling;
+  var open=a.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(function(x){x.classList.remove('open')});
+  document.querySelectorAll('.faq-q').forEach(function(x){x.classList.remove('open')});
+  if(!open){a.classList.add('open');el.classList.add('open')}
+}
+document.querySelectorAll('.menu-tile a').forEach(function(link){
+  link.addEventListener('click',function(e){
+    var href=this.getAttribute('href');
+    if(href&&href.startsWith('#')){
+      e.preventDefault();
+      var target=document.querySelector(href);
+      if(target){target.scrollIntoView({behavior:'smooth',block:'start'})}
+    }
+  });
+});
+</script>
+</body>
+</html>
