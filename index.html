@@ -1,444 +1,1695 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RSC-PCCTAE — Pró-Reitoria de Gestão de Pessoas · UFMA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSC-PCCTAE | PROGEP – UFMA</title>
+<!-- Skip link para acessibilidade -->
+<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#333;background:#f5f5f5;line-height:1.6}
-a{color:#7a0330;text-decoration:none}
-a:hover{text-decoration:underline}
+  :root {
+    --burgundy:   #7B1234;
+    --burgundy-d: #550D24;
+    --burgundy-l: #9C1840;
+    --gold:       #C49A2A;
+    --gold-l:     #DEB94A;
+    --cream:      #F8F4F0;
+    --bg-alt:     #FFFFFF;
+    --text:       #111111;
+    --muted:      #4A4A4A;
+    --border:     #DCCFC5;
+    --white:      #FFFFFF;
+    --focus:      #0056B8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  /* ── ACESSIBILIDADE ── */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--focus);
+    color: #fff;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    z-index: 9999;
+    text-decoration: none;
+    border-radius: 0 0 6px 0;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+  *:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.75;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--burgundy-d);
+    padding: 7px 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+  }
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .topbar a { color: rgba(255,255,255,0.82); text-decoration: none; margin-left: 18px; font-size: 13px; }
+  .topbar a:hover { color: var(--gold-l); text-decoration: underline; }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    border-bottom: 5px solid var(--burgundy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .logo-img {
+    height: 58px;
+    width: auto;
+    display: block;
+    padding: 2px 0;
+  }
+  .header-badge {
+    background: var(--burgundy);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 7px 16px;
+    border-radius: 5px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  /* nav tabs */
+  .header-nav {
+    background: var(--burgundy);
+  }
+  .header-nav ul {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 28px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .header-nav li a {
+    display: block;
+    padding: 13px 18px;
+    color: rgba(255,255,255,0.88);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .header-nav li a:hover,
+  .header-nav li a.active {
+    color: var(--gold-l);
+    border-bottom-color: var(--gold-l);
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--burgundy-d) 0%, var(--burgundy) 55%, var(--burgundy-l) 100%);
+    padding: 72px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px,
+      transparent 32px
+    );
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 4px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: 'Merriweather', serif;
+    font-size: clamp(26px, 4.5vw, 46px);
+    color: var(--white);
+    line-height: 1.2;
+    max-width: 780px;
+    margin: 0 auto 16px;
+  }
+  .hero h1 span { color: var(--gold-l); }
+  .hero p {
+    color: rgba(255,255,255,0.85);
+    font-size: 18px;
+    max-width: 660px;
+    margin: 0 auto 36px;
+  }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 2px solid transparent;
+  }
+  .btn-primary:hover { background: var(--gold-l); transform: translateY(-2px); }
+  .btn-disabled {
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 2px solid rgba(255,255,255,0.3);
+    cursor: default;
+    font-style: italic;
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 13px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.55);
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+  /* ── ALERT ── */
+  .alert-wrap { max-width: 1200px; margin: 32px auto 0; padding: 0 28px; }
+  .alert-bar {
+    background: #FFF8E6;
+    border: 1px solid #E8C94C;
+    border-left: 5px solid #C4963A;
+    padding: 16px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A3000;
+    line-height: 1.6;
+  }
+  .alert-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+  /* ── SECTIONS ── */
+  section { padding: 72px 28px; background: var(--cream); }
+  /* sections use consistent cream base, white for special blocks */
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Merriweather', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    color: var(--burgundy-d);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .section-lead {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 700px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+  .divider {
+    width: 52px;
+    height: 4px;
+    background: var(--gold);
+    margin-bottom: 32px;
+    border-radius: 2px;
+  }
+
+  /* ── TIMELINE IMPLANTAÇÃO ── */
+  .timeline-wrap {
+    margin-top: 52px;
+    padding: 36px 36px 40px;
+    background: linear-gradient(135deg, var(--burgundy-d) 0%, var(--burgundy) 60%, var(--burgundy-l) 100%);
+    border-radius: 14px;
+    overflow-x: auto;
+  }
+  .timeline-title {
+    font-family: 'Merriweather', serif;
+    color: var(--white);
+    font-size: 17px;
+    margin-bottom: 32px;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+  .timeline-title span { color: var(--gold-l); }
+  .timeline-track {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    min-width: 700px;
+    position: relative;
+  }
+  .tl-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+  }
+  /* connector line */
+  .tl-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 26px;
+    left: 50%;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.18);
+    z-index: 0;
+  }
+  .tl-item.done:not(:last-child)::after { background: rgba(196,150,58,0.6); }
+  .tl-item.current:not(:last-child)::after {
+    background: linear-gradient(to right, rgba(196,150,58,0.6), rgba(255,255,255,0.15));
+  }
+  .tl-dot {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    border: 3px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.55);
+    transition: all 0.3s;
+  }
+  .tl-item.done .tl-dot {
+    background: var(--gold);
+    border-color: var(--gold-l);
+    color: var(--white);
+    box-shadow: 0 0 18px rgba(196,150,58,0.45);
+  }
+  .tl-item.current .tl-dot {
+    background: var(--burgundy-l);
+    border-color: var(--gold-l);
+    border-width: 3px;
+    color: var(--white);
+    box-shadow: 0 0 0 6px rgba(196,150,58,0.22), 0 0 24px rgba(196,150,58,0.4);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 6px rgba(196,150,58,0.22), 0 0 24px rgba(196,150,58,0.4); }
+    50%       { box-shadow: 0 0 0 10px rgba(196,150,58,0.12), 0 0 32px rgba(196,150,58,0.6); }
+  }
+  .tl-body { text-align: center; padding-top: 14px; padding-left: 6px; padding-right: 6px; }
+  .tl-phase {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 5px;
+  }
+  .tl-item.done .tl-phase { color: var(--gold-l); }
+  .tl-item.current .tl-phase { color: var(--gold-l); }
+  .tl-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.35;
+    margin-bottom: 5px;
+  }
+  .tl-item.done .tl-label { color: var(--white); }
+  .tl-item.current .tl-label { color: var(--white); }
+  .tl-sub {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.4;
+    max-width: 130px;
+    margin: 0 auto;
+  }
+  .tl-item.done .tl-sub { color: rgba(255,255,255,0.6); }
+  .tl-item.current .tl-sub { color: rgba(255,255,255,0.75); }
+  .tl-badge {
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .badge-done { background: rgba(196,150,58,0.25); color: var(--gold-l); border: 1px solid rgba(196,150,58,0.45); }
+  .badge-current { background: rgba(139,24,64,0.6); color: #FFD080; border: 1px solid rgba(196,150,58,0.6); animation: pulse-badge 2s ease-in-out infinite; }
+  @keyframes pulse-badge {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  .badge-next { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.15); }
+
+  /* ── O QUE É ── */
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 800px) { .what-grid { grid-template-columns: 1fr; } }
+  .what-text p { color: var(--muted); margin-bottom: 18px; font-size: 17px; }
+  .what-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 30px;
+  }
+  .what-card h3 {
+    font-family: 'Merriweather', serif;
+    font-size: 17px;
+    color: var(--burgundy);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .info-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    font-size: 15.5px;
+    align-items: flex-start;
+  }
+  .info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .info-row strong { color: var(--text); display: block; margin-bottom: 1px; font-size: 15px; }
+  .info-row span { color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+
+  /* ── NÍVEIS ── */
+  .niveis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+  }
+  .nivel-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--burgundy);
+    border-radius: 8px;
+    padding: 24px 18px;
+    text-align: center;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .nivel-card:hover { box-shadow: 0 8px 28px rgba(123,18,52,0.14); transform: translateY(-3px); }
+  .nivel-num {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+  .nivel-pts {
+    font-family: 'Merriweather', serif;
+    font-size: 28px;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .nivel-pts-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .nivel-crit { font-size: 14px; color: var(--text); font-weight: 600; }
+  .nivel-obs { font-size: 12.5px; color: var(--muted); margin-top: 8px; font-style: italic; line-height: 1.4; }
+
+  /* ── CRITÉRIOS ── */
+  .criterios-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 800px) { .criterios-list { grid-template-columns: 1fr; } }
+  .crit-item {
+    display: flex;
+    gap: 16px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    align-items: flex-start;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 16px;
+  }
+  .crit-item:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(123,18,52,0.08); }
+  .crit-num {
+    background: var(--burgundy);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 14px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .crit-desc { font-size: 15.5px; color: var(--text); line-height: 1.6; }
+  .crit-desc strong { color: var(--burgundy-d); }
+
+  /* ── COMO REQUERER ── */
+  .steps { display: flex; flex-direction: column; gap: 20px; }
+  .step {
+    display: flex;
+    gap: 22px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 26px 28px;
+    align-items: flex-start;
+    font-size: 16px;
+    transition: box-shadow 0.2s;
+  }
+  .step:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.07); }
+  .step.pending {
+    border: 1px dashed var(--border);
+    background: #F9F6F1;
+    opacity: 0.88;
+    position: relative;
+  }
+  .step-num {
+    background: var(--burgundy);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 17px;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Merriweather', serif;
+  }
+  .step.pending .step-num {
+    background: var(--muted);
+  }
+  .step h4 { font-size: 17px; color: var(--burgundy-d); font-weight: 700; margin-bottom: 8px; }
+  .step.pending h4 { color: var(--muted); }
+  .step p { font-size: 15.5px; color: var(--muted); line-height: 1.65; }
+  .step-pending-badge {
+    display: inline-block;
+    background: #FFF0D0;
+    color: #7A5000;
+    border: 1px solid #E0B048;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  /* ── DOCUMENTOS ── */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .doc-item {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--gold);
+    border-radius: 6px;
+    padding: 18px 20px;
+    font-size: 15.5px;
+    display: flex; gap: 14px; align-items: flex-start;
+    line-height: 1.55;
+  }
+  .doc-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── LEGISLAÇÃO ── */
+  .legis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+  .legis-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 26px;
+    transition: box-shadow 0.2s;
+  }
+  .legis-card:hover { box-shadow: 0 6px 22px rgba(123,18,52,0.1); }
+  .legis-tag {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .legis-card h4 { font-size: 15.5px; color: var(--burgundy-d); font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+  .legis-card p { font-size: 14.5px; color: var(--muted); margin-bottom: 14px; line-height: 1.6; }
+  .legis-card a {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--gold);
+    text-decoration: underline;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .legis-card a:hover { color: var(--burgundy); }
+
+  /* ── FAQ ── */
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item { border-bottom: 1px solid var(--border); background: var(--cream); }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 22px 4px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--burgundy-d);
+    gap: 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    line-height: 1.4;
+  }
+  .faq-q:hover { color: var(--burgundy); }
+  .faq-arrow {
+    font-size: 20px;
+    transition: transform 0.25s;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.3s;
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.75;
+    padding-left: 4px;
+  }
+  .faq-item.open .faq-a { max-height: 600px; padding-bottom: 22px; }
+
+  /* ── GUIA LINK ── */
+  .guia-block {
+    background: linear-gradient(135deg, var(--burgundy-d), var(--burgundy));
+    border-radius: 14px;
+    padding: 48px 44px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .guia-text h3 {
+    font-family: 'Merriweather', serif;
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .guia-text p { font-size: 16px; color: rgba(255,255,255,0.82); max-width: 540px; line-height: 1.7; }
+  .guia-btn {
+    background: var(--gold);
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: 7px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .guia-btn:hover { background: var(--gold-l); transform: translateY(-2px); }
+
+  /* ── CONTATO ── */
+  .contato-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .contato-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .contato-ico { font-size: 36px; margin-bottom: 14px; display: block; }
+  .contato-card h4 { font-size: 15px; font-weight: 700; color: var(--burgundy-d); margin-bottom: 8px; }
+  .contato-card p, .contato-card a {
+    font-size: 15px; color: var(--muted); text-decoration: none; line-height: 1.6;
+  }
+  .contato-card a:hover { color: var(--burgundy); text-decoration: underline; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--burgundy-d);
+    color: rgba(255,255,255,0.72);
+    padding: 40px 28px;
+    font-size: 14px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-logo {
+    font-family: 'Merriweather', serif;
+    color: var(--white);
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .footer-logo span { color: var(--gold-l); }
+  footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  footer a:hover { color: var(--gold-l); text-decoration: underline; }
+  .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+
+  /* reveal */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; }
+  .revealed { animation: fadeUp 0.6s ease forwards; }
+
+  /* info box reutilizável */
+  .info-box {
+    background: #FEF6E0;
+    border: 1px solid #E8C94C;
+    border-left: 5px solid var(--gold);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 15.5px;
+    color: #3A2A00;
+    margin-top: 22px;
+    line-height: 1.65;
+  }
+  .info-box-burgundy {
+    background: #F6F0EC;
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--burgundy);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 15.5px;
+    color: var(--muted);
+    margin-top: 18px;
+    line-height: 1.65;
+  }
+  .info-box-burgundy strong { color: var(--burgundy-d); }
+
+  /* ── MENU MOBILE ── */
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 14px;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .card-section > div { grid-template-columns: repeat(3, 1fr) !important; }
+  }
+  @media (max-width: 768px) {
+    .nav-toggle { display: flex; }
+    .header-nav ul {
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      padding: 0 28px;
+    }
+    .header-nav.open ul { max-height: 600px; }
+    .header-nav li a { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 3px solid transparent; padding-left: 10px; }
+    .header-nav li a.active, .header-nav li a:hover { border-left-color: var(--gold-l); border-bottom-color: rgba(255,255,255,0.08); }
+    .header-inner { flex-wrap: wrap; }
+    .header-badge { font-size: 11px; padding: 5px 10px; }
+    .logo-img { height: 44px; }
+    .hero h1 { font-size: 26px; }
+    .hero p { font-size: 16px; }
+    .what-grid, .criterios-list, .docs-grid, .legis-grid, .contato-grid { grid-template-columns: 1fr; }
+    .niveis-grid { grid-template-columns: repeat(2, 1fr); }
+    .card-section > div { grid-template-columns: repeat(2, 1fr) !important; }
+    .timeline-wrap { padding: 24px 16px 28px; }
+    .guia-block { padding: 32px 24px; }
+    section { padding: 52px 20px; }
+  }
+  /* ── RESPONSÁVEL ── */
+  .footer-resp { font-size: 12.5px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  /* ── VERSÃO NO ALERT ── */
+  .alert-version { font-size: 12px; color: #7A6010; margin-top: 5px; font-style: italic; }
+  /* ── GLPI LINK ── */
+  .glpi-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--burgundy-l);
+    border-radius: 6px;
+    padding: 14px 20px;
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .glpi-box strong { color: var(--burgundy-d); }
+  /* ── CRITERIOS EXEMPLOS ── */
+  .crit-ex {
+    font-size: 13.5px;
+    color: var(--gold);
+    font-style: italic;
+    margin-top: 5px;
+    line-height: 1.45;
+  }
+  /* ── COMO REQUERER PREP BLOCK ── */
+  .prep-block {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .prep-header {
+    background: var(--burgundy-d);
+    color: var(--white);
+    padding: 16px 28px;
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .prep-steps { padding: 8px 0; }
+  .prep-step {
+    display: flex;
+    gap: 18px;
+    padding: 18px 28px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+    font-size: 16px;
+  }
+  .prep-step:last-child { border-bottom: none; }
+  .prep-step-num {
+    background: var(--gold);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 14px;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Merriweather', serif;
+  }
+  .prep-step h5 { font-size: 16px; color: var(--burgundy-d); font-weight: 700; margin-bottom: 5px; }
+  .prep-step p { font-size: 15px; color: var(--muted); }
+  .pending-block { display: flex; flex-direction: column; gap: 16px; }
 
 
-/* ===== BREADCRUMB ===== */
-#breadcrumbs{background:#e8e8e8;border-bottom:1px solid #d0d0d0;padding:6px 20px;font-size:12px;color:#555;max-width:100%}
-#breadcrumbs .inner{max-width:1200px;margin:0 auto}
-#breadcrumbs a{color:#7a0330}
-#breadcrumbs .sep{margin:0 5px;color:#999}
-#breadcrumbs .current{color:#555;font-weight:500}
+  /* ── BARRA DE ACESSIBILIDADE ── */
+  .a11y-bar {
+    background: #2B2B2B;
+    padding: 8px 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .a11y-label {
+    color: rgba(255,255,255,0.75);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .a11y-btn {
+    background: #4A4A4A;
+    color: #fff;
+    border: 1px solid #666;
+    border-radius: 4px;
+    padding: 5px 11px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.18s, border-color 0.18s;
+    line-height: 1;
+  }
+  .a11y-btn:hover { background: #666; border-color: #aaa; }
+  .a11y-btn:focus-visible { outline: 3px solid var(--gold-l); outline-offset: 2px; }
+  .a11y-btn.active { background: var(--gold); border-color: var(--gold-l); color: #fff; }
+  .a11y-sep { width: 1px; height: 22px; background: #555; margin: 0 4px; }
 
-/* ===== SHARE BAR ===== */
-.share-bar{background:#fff;border-bottom:1px solid #ddd;padding:6px 20px;font-size:12px}
-.share-bar .inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;color:#777}
-.share-btn{background:#f0f0f0;border:1px solid #ddd;padding:3px 10px;border-radius:2px;font-size:11px;color:#555;cursor:pointer}
+  /* ── ALTO CONTRASTE ── */
+  body.hc {
+    --burgundy:   #000000;
+    --burgundy-d: #000000;
+    --burgundy-l: #000000;
+    --gold:       #FFD700;
+    --gold-l:     #FFE566;
+    --cream:      #FFFFFF;
+    --text:       #000000;
+    --muted:      #111111;
+    --border:     #000000;
+    --white:      #FFFFFF;
+    --focus:      #FFD700;
+    background: #fff !important;
+  }
+  body.hc .topbar { background: #000 !important; border-bottom: 2px solid #FFD700; }
+  body.hc header { background: #000 !important; border-bottom: 4px solid #FFD700; }
+  body.hc .header-inner { background: #000 !important; }
+  body.hc .header-badge { background: #FFD700 !important; color: #000 !important; }
+  body.hc .header-inner { background: #111 !important; }
+  body.hc .header-nav { background: #000 !important; }
+  body.hc .header-nav li a { color: #FFD700 !important; }
+  body.hc .header-nav li a:hover,
+  body.hc .header-nav li a.active { color: #fff !important; border-bottom-color: #fff !important; background: #333 !important; }
+  body.hc .hero { background: #000 !important; }
+  body.hc .hero h1 { color: #FFD700 !important; }
+  body.hc .hero h1 span { color: #fff !important; }
+  body.hc .hero p { color: #fff !important; }
+  body.hc .btn-primary { background: #FFD700 !important; color: #000 !important; border: 2px solid #000 !important; }
+  body.hc .btn-disabled { background: #333 !important; color: #aaa !important; }
+  body.hc .alert-bar { background: #FFFDE7 !important; border-color: #000 !important; border-left-color: #000 !important; color: #000 !important; }
+  body.hc .nivel-card { border-top-color: #000 !important; background: #fff !important; border-color: #000 !important; }
+  body.hc .nivel-num { background: #000 !important; color: #FFD700 !important; }
+  body.hc .nivel-pts { color: #000 !important; }
+  body.hc .crit-num { background: #000 !important; color: #FFD700 !important; }
+  body.hc .crit-ex { color: #555 !important; }
+  body.hc .section-label { color: #000 !important; }
+  body.hc .section-title { color: #000 !important; }
+  body.hc .divider { background: #000 !important; }
+  body.hc .what-card { background: #f8f8f8 !important; border-color: #000 !important; }
+  body.hc .info-row strong { color: #000 !important; }
+  body.hc .info-row span { color: #222 !important; }
+  body.hc .timeline-wrap { background: #111 !important; }
+  body.hc .tl-item.done .tl-dot { background: #FFD700 !important; color: #000 !important; }
+  body.hc .tl-item.current .tl-dot { background: #333 !important; border-color: #FFD700 !important; }
+  body.hc .tl-label { color: #fff !important; }
+  body.hc .guia-block { background: #000 !important; }
+  body.hc .guia-btn { background: #FFD700 !important; color: #000 !important; }
+  body.hc .step { background: #fff !important; border-color: #000 !important; }
+  body.hc .step h4 { color: #000 !important; }
+  body.hc .step.pending { background: #f0f0f0 !important; }
+  body.hc .prep-block { border-color: #000 !important; }
+  body.hc .prep-header { background: #000 !important; color: #FFD700 !important; }
+  body.hc .prep-step-num { background: #000 !important; color: #FFD700 !important; }
+  body.hc .prep-step h5 { color: #000 !important; }
+  body.hc .legis-card { background: #fff !important; border-color: #000 !important; }
+  body.hc .legis-tag { background: #000 !important; }
+  body.hc .faq-q { color: #000 !important; }
+  body.hc .faq-arrow { color: #000 !important; }
+  body.hc .faq-a { color: #111 !important; }
+  body.hc footer { background: #000 !important; border-top: 3px solid #FFD700; }
+  body.hc .a11y-bar { background: #111 !important; border-bottom: 2px solid #FFD700; }
+  body.hc .a11y-btn.active { background: #FFD700 !important; color: #000 !important; }
+  body.hc .nav-toggle span { background: #FFD700 !important; }
+  body.hc *:focus-visible { outline-color: #FFD700 !important; }
 
-/* ===== MAIN LAYOUT ===== */
-#wrapper{max-width:1200px;margin:0 auto;padding:0 20px 40px}
+  /* ── TAMANHO DE FONTE ── */
+  /* Approach: scale factor on :root via JS; zoom on content areas */
+  :root { --fz: 1; }
 
-/* ===== ALERTA/AVISO ===== */
-.aviso-novo{background:#fff3cd;border-left:4px solid #ffcc00;padding:10px 16px;margin:16px 0;border-radius:2px;font-size:13px;color:#664d03}
-.aviso-novo strong{color:#5a4200}
+  /* A+ (nivel 1) → 11% bigger */
+  body.fs-grande { --fz: 1.11; }
 
-/* ===== HEADER TILE (vinho escuro, faixa principal) ===== */
-.cabecalho-principal{background:#8c0434;color:#fff;padding:22px 24px;margin:16px 0 0;border-radius:2px}
-.cabecalho-principal h1{font-size:24px;font-weight:700;letter-spacing:.3px;margin-bottom:6px;color:#fff}
-.cabecalho-principal p{font-size:14px;opacity:.9;max-width:800px;line-height:1.6}
-.badge-novo{display:inline-block;background:#ffcc00;color:#8c0434;font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;letter-spacing:.5px;vertical-align:middle;margin-left:10px}
+  /* A++ (nivel 2) → 22% bigger */
+  body.fs-extra  { --fz: 1.22; }
 
-/* ===== DESCRICAO INTRO ===== */
-.intro-tile{background:#fff;border:1px solid #e0e0e0;padding:16px 20px;margin-bottom:20px;font-size:14px;line-height:1.7;border-left:4px solid #7a0330}
-.intro-tile p{margin-bottom:8px}
-.intro-tile p:last-child{margin-bottom:0}
-.intro-tile strong{color:#8c0434}
+  /* Apply zoom to main content blocks — scales ALL children uniformly */
+  body.fs-grande main,
+  body.fs-grande .hero,
+  body.fs-grande .alert-wrap,
+  body.fs-grande .card-section { zoom: 1.11; }
 
-/* ===== TITULO DE SEÇÃO (estilo linha discreta) ===== */
-.section-title-bar{background:#faeaef;border-left:4px solid #7a0330;padding:10px 16px;margin:24px 0 12px;font-size:15px;font-weight:700;color:#8c0434;text-transform:uppercase;letter-spacing:.5px}
+  body.fs-extra main,
+  body.fs-extra .hero,
+  body.fs-extra .alert-wrap,
+  body.fs-extra .card-section  { zoom: 1.22; }
 
-/* ===== MENU TILES (quadradinhos) ===== */
-.menu-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin:16px 0 24px}
-.menu-tile{background:#fff;border:1px solid #d0d0d0;border-top:3px solid #8c0434;padding:14px 10px;text-align:center;border-radius:2px;transition:border-color .15s,box-shadow .15s;cursor:pointer}
-.menu-tile:hover{border-top-color:#ffcc00;box-shadow:0 2px 6px rgba(0,0,0,.1);text-decoration:none}
-.menu-tile .icon{font-size:22px;margin-bottom:6px;display:block}
-.menu-tile h3{font-size:12px;font-weight:600;color:#8c0434;line-height:1.3}
-.menu-tile a{color:#8c0434;font-size:12px;font-weight:600;line-height:1.3}
-.menu-tile a:hover{text-decoration:none}
-
-/* ===== CONTENT SECTION ===== */
-.content-section{background:#fff;border:1px solid #e0e0e0;padding:20px 24px;margin-bottom:16px;border-radius:2px}
-.content-section h2{font-size:17px;font-weight:700;color:#8c0434;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #faeaef}
-.content-section h3{font-size:14px;font-weight:600;color:#8c0434;margin:14px 0 6px}
-.content-section p{font-size:14px;margin-bottom:10px;line-height:1.7}
-.content-section ul,
-.content-section ol{margin:8px 0 12px 20px;font-size:14px}
-.content-section li{margin-bottom:4px;line-height:1.6}
-
-/* ===== PASSOS ===== */
-.passos{counter-reset:passo;margin:12px 0}
-.passo{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
-.passo-num{background:#8c0434;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
-.passo-body{flex:1}
-.passo-body strong{display:block;font-size:14px;color:#8c0434;margin-bottom:2px}
-.passo-body p{font-size:13px;color:#555;margin:0}
-
-/* ===== LEGISLAÇÃO TABLE ===== */
-.leg-table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
-.leg-table th{background:#8c0434;color:#fff;padding:8px 12px;text-align:left;font-weight:600}
-.leg-table td{padding:8px 12px;border-bottom:1px solid #e8e8e8;vertical-align:top}
-.leg-table tr:hover td{background:#fdf5f8}
-.leg-table .status-ok{color:#7a0330;font-weight:600}
-.leg-table .status-pend{color:#996600;font-weight:600}
-.leg-table .status-ela{color:#0066cc;font-weight:600}
-.leg-table a{color:#7a0330;text-decoration:underline}
-
-/* ===== DOCUMENTOS GRID ===== */
-.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:12px 0}
-.doc-card{border:1px solid #d0d0d0;border-radius:3px;padding:14px;background:#fafafa;display:flex;flex-direction:column;gap:6px;transition:box-shadow .15s}
-.doc-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.doc-card .doc-icon{font-size:20px}
-.doc-card .doc-title{font-size:13px;font-weight:600;color:#8c0434;line-height:1.3}
-.doc-card .doc-desc{font-size:11px;color:#777;line-height:1.4;flex:1}
-.doc-card .doc-link{display:inline-block;background:#7a0330;color:#fff;font-size:11px;padding:4px 10px;border-radius:2px;margin-top:4px;text-align:center}
-.doc-card .doc-link:hover{background:#6a0326;text-decoration:none}
-.doc-card .doc-em-breve{display:inline-block;background:#e8e8e8;color:#777;font-size:11px;padding:4px 10px;border-radius:2px;margin-top:4px;text-align:center;font-style:italic}
-
-/* ===== SISTEMA CARD ===== */
-.sistema-box{background:#faeaef;border:1px solid #e8b0c4;border-radius:3px;padding:20px 24px;margin:12px 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.sistema-box h3{font-size:14px;font-weight:700;color:#8c0434;margin-bottom:8px}
-.sistema-box p{font-size:13px;color:#444;margin-bottom:10px}
-.btn-sistema{display:inline-block;background:#8c0434;color:#fff;padding:9px 20px;border-radius:3px;font-size:13px;font-weight:600;transition:background .15s}
-.btn-sistema:hover{background:#6a0326;text-decoration:none}
-.btn-acompanhar{display:inline-block;.btn-sistema{display:inline-block;background:#8c0434 20px;border-radius:3px;font-size:13px;font-weight:600;transition:background .15s}
-.btn-acompanhar:hover{background:#6a0326;text-decoration:none}
-
-/* ===== COMISSÃO ===== */
-.comissao-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
-.comissao-card{background:#f9f9f9;border:1px solid #e0e0e0;border-radius:3px;padding:14px 16px}
-.comissao-card h4{font-size:13px;font-weight:700;color:#8c0434;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #faeaef}
-.comissao-card p,
-.comissao-card li{font-size:13px;color:#444;margin-bottom:4px}
-.comissao-card ul{margin-left:16px}
-.comissao-card a{color:#7a0330}
-.contato-box{background:#faeaef;border-radius:3px;padding:14px 16px;grid-column:1/-1;display:flex;flex-wrap:wrap;gap:20px;align-items:center}
-.contato-item{font-size:13px;color:#333}
-.contato-item strong{display:block;color:#8c0434;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
-
-/* ===== FAQ ===== */
-.faq-item{border:1px solid #e0e0e0;margin-bottom:6px;border-radius:2px;overflow:hidden}
-.faq-q{display:flex;justify-content:space-between;align-items:center;padding:11px 16px;background:#faeaef;cursor:pointer;font-size:13px;font-weight:600;color:#8c0434;user-select:none}
-.faq-q:hover{background:#f5d5e0}
-.faq-q .arrow{transition:transform .2s;font-size:11px;flex-shrink:0;margin-left:10px}
-.faq-q.open .arrow{transform:rotate(90deg)}
-.faq-a{display:none;padding:12px 16px;font-size:13px;color:#444;line-height:1.7;border-top:1px solid #faeaef;background:#fff}
-.faq-a.open{display:block}
-
-/* ===== ATENDIMENTO ===== */
-.atend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:12px 0}
-.atend-card{background:#fff;border:1px solid #d0d0d0;border-top:3px solid #ffcc00;padding:14px 16px;border-radius:2px}
-.atend-card .atend-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#996600;margin-bottom:6px}
-.atend-card p,
-.atend-card a{font-size:13px;color:#333;line-height:1.5}
-.atend-card a{color:#7a0330}
-
-/* ===== FOOTER ===== */
-footer{background:#6a0326;color:#fff;margin-top:30px}
-.footer-inner{max-width:1200px;margin:0 auto;padding:20px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
-.footer-col h4{font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;color:#f0c8d8;font-weight:600}
-.footer-col ul{list-style:none}
-.footer-col li{margin-bottom:5px}
-.footer-col a{color:#f0c8d8;font-size:12px}
-.footer-col a:hover{color:#fff}
-.footer-bottom{background:#4a0118;text-align:center;padding:8px;font-size:11px;color:rgba(255,255,255,.6)}
-
-/* ===== VERSAO NOTA ===== */
-.versao-nota{background:#fff3cd;border:1px dashed #ffcc00;border-radius:3px;padding:10px 16px;font-size:12px;color:#664d03;margin:16px 0 4px;font-style:italic}
-
-@media(max-width:700px){
-  .sistema-box,.comissao-grid{grid-template-columns:1fr}
-  .contato-box{grid-column:1/-1}
-  .menu-tiles{grid-template-columns:repeat(3,1fr)}
-  .header-wrapper{flex-direction:column;align-items:flex-start;gap:10px}
-  #portal-title{font-size:20px}
-}
 </style>
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
 
-<!-- WRAPPER PRINCIPAL -->
-<div id="wrapper">
-  <div id="content">
+<!-- TOPBAR -->
+<div class="a11y-bar" role="toolbar" aria-label="Ferramentas de acessibilidade">
+  <span class="a11y-label">♿ Acessibilidade:</span>
+  <button class="a11y-btn active" id="btn-normal" onclick="ajustarFonte(0)" aria-label="Tamanho de fonte padrão" aria-pressed="true">A</button>
+  <button class="a11y-btn" id="btn-maior" onclick="ajustarFonte(1)" aria-label="Aumentar tamanho da fonte">A+</button>
+  <button class="a11y-btn" id="btn-extra" onclick="ajustarFonte(2)" aria-label="Tamanho de fonte extra-grande">A++</button>
+  <div class="a11y-sep" aria-hidden="true"></div>
+  <button class="a11y-btn" id="btn-contraste" onclick="toggleContraste()" aria-label="Ativar alto contraste" aria-pressed="false">⬤ Alto Contraste</button>
+</div>
+<div class="topbar" role="banner">
+  <div class="topbar-inner">
+    <span>Universidade Federal do Maranhão – UFMA</span>
+    <nav aria-label="Links institucionais">
+      <a href="https://portalpadrao.ufma.br/" target="_blank" rel="noopener">Portal UFMA</a>
+      <a href="https://sei.ufma.br/" target="_blank" rel="noopener">SEI</a>
+      <a href="https://sougov.sigepe.gov.br/sougov/" target="_blank" rel="noopener">SOUGOV</a>
+      <a href="https://falabr.cgu.gov.br/" target="_blank" rel="noopener">Portal da Transparência</a>
+    </nav>
+  </div>
+</div>
 
-    <!-- AVISO PRELIMINAR -->
-    <div class="versao-nota">
-      &#9432; <strong>Versão preliminar</strong> — Esta página está em construção. Os documentos, formulários e links para o sistema estarão disponíveis após a publicação do Decreto regulamentador e a instauração da CRSC-PCCTAE na UFMA. 
+<!-- HEADER -->
+<header role="banner">
+  <div class="header-inner">
+    <a href="#" aria-label="PROGEP – Pró-Reitoria de Gestão de Pessoas – UFMA">
+      <img src="data:image/png;base64,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" alt="Logo PROGEP – Pró-Reitoria de Gestão de Pessoas – UFMA" class="logo-img">
+    </a>
+    <div class="header-badge" aria-label="Portal RSC-PCCTAE">RSC-PCCTAE</div>
+  </div>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu de navegação" onclick="toggleNav(this)"><span></span><span></span><span></span></button>
+  <nav class="header-nav" id="main-nav" aria-label="Navegação principal">
+    <ul role="list">
+      <li><a href="#oque">O que é</a></li>
+      <li><a href="#niveis">Níveis</a></li>
+      <li><a href="#criterios">Critérios</a></li>
+      <li><a href="#como">Como Requerer</a></li>
+      <li><a href="#documentos">Documentos</a></li>
+      <li><a href="#legislacao">Legislação</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero" role="region" aria-label="Cabeçalho da página RSC-PCCTAE">
+  <div class="hero-tag" aria-hidden="true">Reconhecimento de Saberes e Competências</div>
+  <h1>RSC-PCCTAE na <span>UFMA</span></h1>
+  <p>Portal informativo para servidores Técnico-Administrativos em Educação sobre o Reconhecimento de Saberes e Competências, instituído pela Lei nº 15.367/2026.</p>
+  <div class="hero-btns">
+    <a href="#guia" class="btn-primary">📁 Guia de Documentos</a>
+    <span class="btn-disabled" role="note" aria-label="Abertura de requerimentos em breve">🕐 Como Requerer — Em breve</span>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="alert-wrap">
+  <div class="alert-bar" role="alert" aria-live="polite">
+    <div class="alert-icon" aria-hidden="true">⚠️</div>
+    <div>
+      <strong>Atenção:</strong> O quadro normativo do RSC-PCCTAE está em fase de regulamentação. O Decreto regulamentador ainda não foi publicado. As informações desta página refletem o estado atual da legislação. Os procedimentos internos da UFMA serão definidos após publicação do Decreto. Acompanhe as atualizações.
+      <div class="alert-version">Última atualização: maio de 2026</div>
     </div>
+  </div>
+</div>
 
-    <!-- AVISO DE VIGÊNCIA -->
-    <div class="aviso-novo">
-      <strong>&#9888; Novidade:</strong> O RSC-PCCTAE foi formalmente instituído pela <strong>Lei nº 15.367, de 30 de março de 2026</strong>, com vigência a partir de 1º de abril de 2026. O Decreto regulamentador está em tramitação no Governo Federal. Acompanhe as atualizações nesta página.
+
+<!-- CARDS RÁPIDOS -->
+<div class="card-section" style="max-width:1200px;margin:28px auto 0;padding:0 28px;">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+    <a href="#guia" style="text-decoration:none;" aria-label="Acessar Guia de Levantamento de Documentos">
+      <div style="background:#FFFFFF;border:1px solid #DCCFC5;border-top:4px solid #C49A2A;border-radius:10px;padding:16px 14px;text-align:center;transition:box-shadow 0.2s,transform 0.15s;" onmouseover="this.style.boxShadow='0 6px 22px rgba(123,18,52,0.13)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+        <div style="font-size:28px;margin-bottom:8px;">📁</div>
+        <div style="font-weight:700;font-size:14px;color:#550D24;margin-bottom:5px;font-weight:700;">Guia de Documentos</div>
+        <div style="font-size:13px;color:#4A4A4A;">Levantamento e organização dos documentos para o RSC</div>
+        <div style="margin-top:10px;display:inline-block;background:#C49A2A;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:5px;">Acessar →</div>
+      </div>
+    </a>
+    <div aria-label="Como Requerer — Em breve" style="cursor:default;">
+      <div style="background:#F3EDE8;border:1px dashed #DCCFC5;border-top:4px solid #999;border-radius:10px;padding:16px 14px;text-align:center;opacity:0.85;">
+        <div style="font-size:28px;margin-bottom:8px;">📋</div>
+        <div style="font-weight:700;font-size:16px;color:#666;margin-bottom:6px;">Como Requerer</div>
+        <div style="font-size:13px;color:#777;">Procedimentos para solicitar o RSC-PCCTAE na UFMA</div>
+        <div style="margin-top:10px;display:inline-block;background:#999;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:5px;">🕐 Em breve</div>
+      </div>
     </div>
-
-    <!-- CABEÇALHO PRINCIPAL -->
-    <div class="cabecalho-principal">
-      <h1>Reconhecimento de Saberes e Competências — RSC-PCCTAE</h1>
-      <p>Mecanismo de reconhecimento dos conhecimentos e habilidades desenvolvidas ao longo da trajetória profissional dos servidores integrantes do Plano de Carreira dos Cargos Técnico-Administrativos em Educação (PCCTAE) nas Instituições Federais de Ensino.</p>
+    <div aria-label="Comissão RSC-TAE — Em breve" style="cursor:default;">
+      <div style="background:#F3EDE8;border:1px dashed #DCCFC5;border-top:4px solid #999;border-radius:10px;padding:16px 14px;text-align:center;opacity:0.85;">
+        <div style="font-size:28px;margin-bottom:8px;">👥</div>
+        <div style="font-weight:700;font-size:16px;color:#666;margin-bottom:6px;">Comissão RSC-TAE</div>
+        <div style="font-size:13px;color:#777;">Composição e funcionamento da CRSC-PCCTAE na UFMA</div>
+        <div style="margin-top:10px;display:inline-block;background:#999;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:5px;">🕐 Em breve</div>
+      </div>
     </div>
+    <a href="#legislacao" style="text-decoration:none;" aria-label="Acessar Legislação e documentos de referência">
+      <div style="background:#FFFFFF;border:1px solid #DCCFC5;border-top:4px solid #7B1234;border-radius:10px;padding:16px 14px;text-align:center;transition:box-shadow 0.2s,transform 0.15s;" onmouseover="this.style.boxShadow='0 6px 22px rgba(123,18,52,0.13)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+        <div style="font-size:28px;margin-bottom:8px;">⚖️</div>
+        <div style="font-weight:700;font-size:14px;color:#550D24;margin-bottom:5px;font-weight:700;">Legislação</div>
+        <div style="font-size:13px;color:#4A4A4A;">Leis e normas que regem o RSC-PCCTAE</div>
+        <div style="margin-top:10px;display:inline-block;background:#7B1234;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:5px;">Acessar →</div>
+      </div>
+    </a>
+  </div>
+</div>
 
-    <!-- TEXTO INTRODUTÓRIO -->
-    <div class="intro-tile">
-      <p>O <strong>RSC-PCCTAE</strong> é um instrumento de desenvolvimento e valorização dos servidores técnico-administrativos em educação que permite o reconhecimento formal de saberes e competências adquiridos no exercício do cargo, refletindo nos benefícios da carreira. Na UFMA, sua implementação está sendo coordenada pela <strong>PROGEP</strong>.</p>
-      <p>Para acessar as informações sobre legislação, requisitos, formulários, sistema de protocolo e atendimento da Comissão, utilize o menu abaixo ou navegue pelas seções desta página.</p>
-    </div>
+<!-- MAIN CONTENT -->
+<main id="main-content">
 
-    <!-- MENU TILES DE NAVEGAÇÃO RÁPIDA -->
-    <div class="section-title-bar">Acesso Rápido</div>
-    <div class="menu-tiles">
-      <div class="menu-tile"><span class="icon">📋</span><a href="#o-que-e">O que é o RSC</a></div>
-      <div class="menu-tile"><span class="icon">⚖️</span><a href="#legislacao">Legislação</a></div>
-      <div class="menu-tile"><span class="icon">✅</span><a href="#requisitos">Requisitos</a></div>
-      <div class="menu-tile"><span class="icon">📝</span><a href="#como-solicitar">Como solicitar</a></div>
-      <div class="menu-tile"><span class="icon">📂</span><a href="#documentos">Documentos e Guias</a></div>
-      <div class="menu-tile"><span class="icon">💻</span><a href="#sistema">Sistema de Solicitação</a></div>
-      <div class="menu-tile"><span class="icon">👥</span><a href="#comissao">Comissão (CRSC)</a></div>
-      <div class="menu-tile"><span class="icon">❓</span><a href="#faq">Perguntas Frequentes</a></div>
-    </div>
-
-    <!-- 1. O QUE É -->
-    <a id="o-que-e"></a>
-    <div class="section-title-bar">O que é o RSC-PCCTAE?</div>
-    <div class="content-section">
-      <p>O <strong>Reconhecimento de Saberes e Competências para o Plano de Carreira dos Cargos Técnico-Administrativos em Educação (RSC-PCCTAE)</strong> é um processo de reconhecimento dos conhecimentos e habilidades desenvolvidos a partir da <strong>experiência individual e profissional</strong>, bem como das atividades realizadas no a	mbiente de trabalho, pelos servidores integrantes do PCCTAE.</p>
-      <p>O RSC é concedido mediante avaliação de memorial descritivo e documentação comprobatória apresentados pelo servidor, e produz efeitos sobre o <strong>Incentivo à Qualificação</strong>, incidindo a partir da data de deferimento do pedido pela comissão avaliadora.</p>
-      <h3>Níveis do RSC</h3>
-      <ul>
-        <li><strong>RSC-I</strong> — Pontuação mínima: 10 pontos (critérios específicos conforme Decreto)</li>
-        <li><strong>RSC-II</strong> — Pontuação mínima: 15 pontos</li>
-        <li><strong>RSC-III</strong> — Pontuação mínima: 25 pontos</li>
-        <li><strong>RSC-IV</strong> — Pontuação mínima: 30 pontos</li>
-        <li><strong>RSC-V</strong> — Pontuação mínima: 52 pontos</li>
-        <li><strong>RSC-VI</strong> — Pontuação mínima: 75 pontos</li>
-      </ul>
-      <p style="font-size:12px;color:#777;margin-top:8px">* A pontuação exata por nível e os critérios de avaliação serão definidos no Decreto regulamentador federal, em fase de publicação.</p>
-    </div>
-
-    <!-- 2. LEGISLAÇÃO -->
-    <a id="legislacao"></a>
-    <div class="section-title-bar">Legislação e Normas</div>
-    <div class="content-section">
-      <table class="leg-table">
-        <tr>
-          <th>Documento</th>
-          <th>Descrição</th>
-          <th>Status</th>
-          <th>Acesso</th>
-        </tr>
-        <tr>
-          <td><strong>Lei nº 15.367/2026</strong></td>
-          <td>Institui o RSC-PCCTAE; altera a Lei nº 11.091/2005 — arts. 12-B a 12-I</td>
-          <td><span class="status-ok">✔ Vigente (1º/abr/2026)</span></td>
-          <td><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15367.htm" target="_blank">Acessar ↗</a></td>
-        </tr>
-        <tr>
-          <td><strong>Lei nº 11.091/2005</strong></td>
-          <td>Dispõe sobre o PCCTAE nas Instituições Federais de Ensino Superior</td>
-          <td><span class="status-ok">✔ Vigente</span></td>
-          <td><a href="https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11091.htm" target="_blank">Acessar ↗</a></td>
-        </tr>
-        <tr>
-          <td><strong>Decreto Regulamentador</strong></td>
-          <td>Estabelece os critérios sobre o PCCTAE nas Instituições Federais de Ensino Superior</td>
-          <td><span class="status-pend">⏳ Em tramitação</span></td>
-          <td><a href="https://progesp.ufrn.br/storage/documentos/Jjd1I0w9GrpW2yan0pKZI0OFMj9JWtGDTR2MYuKN.pdf" target="_blank">Acessar Minuta ↗</a></td>
-        </tr>
-      </table>
-      <p style="font-size:12px;color:#777;margin-top:8px">Esta tabela será atualizada conforme publicação dos instrumentos normativos. Última atualização: abril/2026.</p>
-    </div>
-
-    <!-- 3. REQUISITOS -->
-    <a id="requisitos"></a>
-    <div class="section-title-bar">Requisitos para Concessão</div>
-    <div class="content-section">
-      <h3>Requisitos gerais (art. 12-D da Lei nº 11.091/2005)</h3>
-      <ul>
-        <li>Ser servidor <strong>estável</strong> integrante do PCCTAE</li>
-        <li>Ter cumprido o <strong>interstício mínimo</strong> previsto na legislação entre concessões sucessivas</li>
-        <li>Comprovar <strong>saberes e competências diferenciados</strong> que qualificam a execução das atribuições do cargo, por meio de memorial descritivo e documentação comprobatória</li>
-      </ul>
-      <h3>O que pode ser computado (atividades válidas)</h3>
-      <p>Somente serão reconhecidas <strong>atividades desenvolvidas no exercício do cargo</strong>, que se relacionem diretamente com os saberes e competências exigidos para sua atuação, tais como:</p>
-      <ul>
-        <li>Participação em programas de formação continuada e ações de desenvolvimento de competências</li>
-        <li>Participação em congressos, simpósios, fóruns, colóquios, conferências, workshops, seminários, mostra, feiras, treinamentos e atividades de apoio técnico</li>
-        <li>Exercício de função gratificada</li>
-        <li>Atuação em comissões e grupos de trabalho institucionais</li>
-        <li>Outras atividades previstas nos critérios específicos do Decreto regulamentador</li>
-      </ul>
-      <h3>O que NÃO é considerado</h3>
-      <ul>
-        <li>Atividades que fazem parte das atribuições regulares do cargo (parte obrigatória do trabalho diário)</li>
-        <li>Atividades realizadas fora do exercício do cargo</li>
-        <li>Fatos já utilizados em concessão anterior (vedada a duplicidade)</li>
-      </ul>
-      <h3>Sobre os efeitos financeiros</h3>
-      <p>Os efeitos financeiros sobre o <strong>Incentivo à Qualificação</strong> incidem a partir da <strong>data de deferimento</strong> do pedido pela CRSC-PCCTAE, não havendo retroatividade à data do requerimento. </p>
-      <p><strong>Exceção:</strong> caso a análise ultrapasse o prazo de 120 dias, os efeitos retroagem ao término deste prazo.</p>
-    </div>
-
-
-
-    <!-- 4. COMO SOLICITAR -->
-    <a id="como-solicitar"></a>
-    <div class="section-title-bar">Como solicitar o RSC-PCCTAE</div>
-
-
-    <!-- Aviso inicial -->
-
-    <div id="aviso-em-breve" style="text-align: center; padding: 20px;">
-    <p><strong>Conteúdo em elaboração ⏳</strong></p>
-    </div>
-
-
-    <!-- 5. DOCUMENTOS -->
-    <a id="documentos"></a>
-    <div class="section-title-bar">Documentos e Formulários</div>
-    <div class="content-section">
-      <p>Os documentos abaixo estarão disponíveis para download após a publicação do Decreto regulamentador e a instauração formal da CRSC-PCCTAE na UFMA.</p>
-      <div class="docs-grid">
-        <div class="doc-card">
-          <div class="doc-icon">📄</div>
-          <div class="doc-title">Formulário de requerimento de concessão do RSC</div>
-          <div class="doc-desc">Formulário-padrão para protocolo do pedido de concessão do RSC-PCCTAE</div>
-          <span class="doc-em-breve">Em breve</span>
-        </div>
-        <div class="doc-card">
-          <div class="doc-icon">📝</div>
-          <div class="doc-title">Modelo de memorial descritivo</div>
-          <div class="doc-desc">Modelo estruturado para elaboração do memorial de trajetória profissional</div>
-          <span class="doc-em-breve">Em breve</span>
-        </div>
-        <div class="doc-card">
-          <div class="doc-icon">📋</div>
-          <div class="doc-title">Lista de documentos comprobatórios</div>
-          <div class="doc-desc">Relação oficial dos documentos aceitos para comprovação dos saberes e competências</div>
-          <span class="doc-em-breve">Em breve</span>
-        </div>
-        <div class="doc-card">
-          <div class="doc-icon">📘</div>
-          <div class="doc-title">Cartilha RSC-PCCTAE/UFMA</div>
-          <div class="doc-desc">Guia explicativo sobre o RSC: o que é, quem tem direito, como funciona e o que muda na carreira</div>
-          <span class="doc-em-breve">Em breve</span>
-        </div>
-        <div class="doc-card">
-          <div class="doc-icon">📊</div>
-          <div class="doc-title">Tabela de critérios e pontuação</div>
-          <div class="doc-desc">Relação dos critérios específicos e pontuação por nível de RSC</div>
-          <span class="doc-em-breve">Em breve</span>
-        </div>
-        <div class="doc-card">
-          <div class="doc-icon">⚖️</div>
-          <div class="doc-title">Legislação compilada RSC</div>
-          <div class="doc-desc">Compilação dos textos legais relevantes: Lei nº 15.367/2026, Lei nº 11.091/2005 e Decreto</div>
-          <span class="doc-em-breve">Em breve</span>
+<!-- O QUE É -->
+<section id="oque" aria-labelledby="oque-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Conceito</span>
+    <h2 class="section-title" id="oque-title">O que é o RSC-PCCTAE?</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="what-grid">
+      <div class="what-text">
+        <p>O <strong>Reconhecimento de Saberes e Competências para o Plano de Carreira dos Cargos Técnico-Administrativos em Educação (RSC-PCCTAE)</strong> é um instituto que reconhece formalmente os conhecimentos e habilidades desenvolvidos pelos servidores TAE a partir de sua experiência individual e profissional no exercício do cargo.</p>
+        <p>Trata-se do reconhecimento do saber <em>não instituído</em> — aquele adquirido pela prática e pela atuação profissional no ambiente de ensino, pesquisa e extensão das Instituições Federais de Ensino (IFEs) —, diferentemente da qualificação formal obtida em cursos de graduação ou pós-graduação.</p>
+        <p>O RSC-PCCTAE produz efeitos financeiros por meio do Incentivo à Qualificação, sendo concedido em seis níveis progressivos de complexidade, condicionados à comprovação de critérios específicos e à aprovação de memorial profissional.</p>
+        <p><strong>Base legal:</strong> Art. 12-B a 12-I da Lei nº 11.091/2005, inseridos pela Lei nº 15.367, de 30 de março de 2026.</p>
+      </div>
+      <div>
+        <div class="what-card" role="complementary" aria-label="Informações essenciais sobre o RSC-PCCTAE">
+          <h3>📌 Informações Essenciais</h3>
+          <div class="info-row">
+            <div class="info-icon" aria-hidden="true">📅</div>
+            <div><strong>Vigência</strong><span>A partir de 1º de abril de 2026 (Lei nº 15.367/2026)</span></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon" aria-hidden="true">⏱️</div>
+            <div><strong>Interstício</strong><span>3 anos após a percepção de cada nível de Incentivo à Qualificação</span></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon" aria-hidden="true">🚫</div>
+            <div><strong>Estágio probatório</strong><span>Não concedido durante o estágio; atividades do período podem ser consideradas</span></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon" aria-hidden="true">💰</div>
+            <div><strong>Efeito financeiro</strong><span>A partir da data do deferimento — sem retroação à data do requerimento (Art. 12-H)</span></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon" aria-hidden="true">📆</div>
+            <div><strong>Prazo das atividades</strong><span>Nos últimos 5 anos de exercício no cargo anteriores ao requerimento (Art. 12-G)</span></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon" aria-hidden="true">🔄</div>
+            <div><strong>Pontuação cumulativa</strong><span>Saldo de pontos não aproveitado é utilizado em concessões futuras. Ex.: se o servidor tem 22 pontos e o RSC-II exige 15, o saldo de 7 pontos é "levado" para o RSC-III.</span></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 6. SISTEMA -->
-    <a id="sistema"></a>
-    <div class="section-title-bar">Sistema de Solicitação</div>
-    <!-- Aviso inicial -->
+    <!-- ── TIMELINE IMPLANTAÇÃO ── -->
+    <div class="timeline-wrap" role="region" aria-label="Etapas de implantação do RSC-PCCTAE na UFMA">
+      <h3 class="timeline-title">Etapas de Implantação do RSC-PCCTAE — <span>Situação Atual na UFMA</span></h3>
+      <div class="timeline-track" role="list">
 
-    <div id="aviso-em-breve" style="text-align: center; padding: 20px;">
-    <p><strong>Conteúdo em elaboração ⏳</strong></p>
-    </div>
-
-    <!-- 7. COMISSÃO -->
-    <a id="comissao"></a>
-    <div class="section-title-bar">Comissão de Reconhecimento — CRSC-PCCTAE/UFMA</div>
-    <div class="content-section">
-      <p>A <strong>CRSC-PCCTAE</strong> é a comissão responsável pela análise dos pedidos de concessão do RSC na UFMA. Nos termos da minuta do Decreto regulamentador, será composta por membros indicados de forma paritária pelos três segmentos abaixo:</p>
-      <div class="comissao-grid">
-        <div class="comissao-card">
-          <h4>Composição</h4>
-          <ul>
-            <li>Membros indicados pelo <strong>Conselho Superior/CONSUN</strong></li>
-            <li>Membros indicados pela <strong>Comissão Interna de Supervisão (CIS-PCCTAE)</strong></li>
-            <li>Membros indicados pela <strong>PROGEP/Gestão de Pessoas</strong></li>
-          </ul>
-          <p style="margin-top:8px;font-size:12px;color:#777">Mínimo 3 e máximo 9 membros titulares com respectivos suplentes. Mandato de 2 anos, prorrogável uma vez.</p>
-        </div>
-        <div class="comissao-card">
-          <h4>Competências da Comissão</h4>
-          <ul>
-            <li>Definir fluxos e procedimentos internos</li>
-            <li>Analisar memoriais no prazo de até 120 dias</li>
-            <li>Verificar a documentação comprobatória</li>
-            <li>Deferir ou indeferir fundamentadamente</li>
-            <li>Publicar resolução de concessão</li>
-            <li>Registrar e consolidar informações</li>
-          </ul>
+        <div class="tl-item done" role="listitem">
+          <div class="tl-dot" aria-hidden="true">✓</div>
+          <div class="tl-body">
+            <div class="tl-phase">Fase 1</div>
+            <div class="tl-label">Marco Legal</div>
+            <div class="tl-sub">Lei nº 15.367/2026 publicada em 30/03/2026</div>
+            <span class="tl-badge badge-done">Concluída</span>
+          </div>
         </div>
 
-    <!-- 8. FAQ -->
-<a id="faq"></a>
-    <div class="section-title-bar">Perguntas Frequentes</div>
-    <div class="content-section">
+        <div class="tl-item current" role="listitem" aria-current="step">
+          <div class="tl-dot" aria-label="Fase atual">⚙</div>
+          <div class="tl-body">
+            <div class="tl-phase">Fase 2 — ATUAL</div>
+            <div class="tl-label">Decreto Regulamentador</div>
+            <div class="tl-sub">Decreto em elaboração e avaliação pelo MEC</div>
+            <span class="tl-badge badge-current">🔴 Em curso</span>
+          </div>
+        </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>1. O RSC-PCCTAE gera efeito financeiro retroativo?</strong></div>
-        <div class="faq-a">Não. Os efeitos financeiros sobre o Incentivo à Qualificação ocorrem a partir da <strong>data de deferimento</strong> do pedido pela CRSC-PCCTAE, e não retroagem à data do requerimento. Exceção: se a Comissão extrapolar o prazo de 120 dias, os efeitos retroagem ao término desse prazo.</div>
+        <div class="tl-item current" role="listitem" aria-current="step">
+          <div class="tl-dot" aria-label="Em andamento">⚙</div>
+          <div class="tl-body">
+            <div class="tl-phase">Fase 3 — EM ANDAMENTO</div>
+            <div class="tl-label">Constituição da CIS</div>
+            <div class="tl-sub">Eleição e instalação da Comissão Interna de Supervisão na UFMA</div>
+            <span class="tl-badge badge-current">🔴 Em andamento</span>
+          </div>
+        </div>
+
+        <div class="tl-item" role="listitem">
+          <div class="tl-dot" aria-hidden="true">4</div>
+          <div class="tl-body">
+            <div class="tl-phase">Fase 4</div>
+            <div class="tl-label">Instalação da CRSC-PCCTAE</div>
+            <div class="tl-sub">Constituição e aprovação do regimento interno da comissão</div>
+            <span class="tl-badge badge-next">Pendente</span>
+          </div>
+        </div>
+
+        <div class="tl-item" role="listitem">
+          <div class="tl-dot" aria-hidden="true">5</div>
+          <div class="tl-body">
+            <div class="tl-phase">Fase 5</div>
+            <div class="tl-label">Abertura de Requerimentos</div>
+            <div class="tl-sub">Início do recebimento de pedidos pelos servidores</div>
+            <span class="tl-badge badge-next">Em breve</span>
+          </div>
+        </div>
+
+        <div class="tl-item" role="listitem">
+          <div class="tl-dot" aria-hidden="true">6</div>
+          <div class="tl-body">
+            <div class="tl-phase">Fase 6</div>
+            <div class="tl-label">Análise e Concessões</div>
+            <div class="tl-sub">Avaliação dos pedidos e efeitos financeiros</div>
+            <span class="tl-badge badge-next">Em breve</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NÍVEIS -->
+<section id="niveis" aria-labelledby="niveis-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Progressão</span>
+    <h2 class="section-title" id="niveis-title">Níveis do RSC-PCCTAE</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <p class="section-lead">O RSC-PCCTAE pode ser concedido em seis níveis progressivos de complexidade. Cada nível exige pontuação mínima e número mínimo de critérios específicos atendidos.</p>
+    <div class="niveis-grid" role="list" aria-label="Seis níveis do RSC-PCCTAE com pontuação e critérios">
+      <article class="nivel-card" role="listitem">
+        <div class="nivel-num">RSC-I</div>
+        <div class="nivel-pts" aria-label="10 pontos mínimos">10</div>
+        <div class="nivel-pts-label">pontos mínimos</div>
+        <div class="nivel-crit">1 critério específico</div>
+      </article>
+      <article class="nivel-card" role="listitem">
+        <div class="nivel-num">RSC-II</div>
+        <div class="nivel-pts" aria-label="15 pontos mínimos">15</div>
+        <div class="nivel-pts-label">pontos mínimos</div>
+        <div class="nivel-crit">2 critérios específicos</div>
+      </article>
+      <article class="nivel-card" role="listitem">
+        <div class="nivel-num">RSC-III</div>
+        <div class="nivel-pts" aria-label="25 pontos mínimos">25</div>
+        <div class="nivel-pts-label">pontos mínimos</div>
+        <div class="nivel-crit">2 critérios específicos</div>
+      </article>
+      <article class="nivel-card" role="listitem">
+        <div class="nivel-num">RSC-IV</div>
+        <div class="nivel-pts" aria-label="30 pontos mínimos">30</div>
+        <div class="nivel-pts-label">pontos mínimos</div>
+        <div class="nivel-crit">3 critérios específicos</div>
+        <div class="nivel-obs">Ao menos 1 dos incisos II, IV, V ou VI</div>
+      </article>
+      <article class="nivel-card" role="listitem">
+        <div class="nivel-num">RSC-V</div>
+        <div class="nivel-pts" aria-label="52 pontos mínimos">52</div>
+        <div class="nivel-pts-label">pontos mínimos</div>
+        <div class="nivel-crit">5 critérios específicos</div>
+        <div class="nivel-obs">Ao menos 1 dos incisos IV, V ou VI</div>
+      </article>
+      <article class="nivel-card" role="listitem">
+        <div class="nivel-num">RSC-VI</div>
+        <div class="nivel-pts" aria-label="75 pontos mínimos">75</div>
+        <div class="nivel-pts-label">pontos mínimos</div>
+        <div class="nivel-crit">7 critérios específicos</div>
+        <div class="nivel-obs">Ao menos 1 do inciso VI</div>
+      </article>
+    </div>
+    <div class="info-box" role="note" style="margin-top:22px;">
+      <strong>⚠️ Atenção:</strong> As pontuações e critérios serão definitivamente estabelecidos no Decreto regulamentador, ainda não publicado. Atividades que representem exclusivamente o desempenho das atribuições ordinárias do cargo <em>não são pontuadas</em> — é necessário demonstrar saberes, competências, inovação ou resultados institucionais relevantes além das funções típicas.
+    </div>
+    <div style="margin-top:16px;background:var(--cream);border:1px solid var(--border);border-left:5px solid var(--burgundy);border-radius:6px;padding:16px 20px;font-size:15.5px;color:var(--muted);line-height:1.65;" role="note">
+      <strong style="color:var(--burgundy-d);">🧮 Simulação de Pontuação:</strong> Para estimar previamente seu enquadramento em cada nível, acesse a <a href="https://www.calculadorarsc.com/" target="_blank" rel="noopener" style="color:var(--gold);font-weight:700;text-decoration:underline;">Calculadora RSC-TAE</a> — ferramenta externa de caráter informativo, baseada nos critérios da CNSC.
+    </div>
+  </div>
+</section>
+
+<!-- CRITÉRIOS -->
+<section id="criterios" aria-labelledby="criterios-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Requisitos legais</span>
+    <h2 class="section-title" id="criterios-title">Critérios de Reconhecimento (Art. 12-D)</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <p class="section-lead">A concessão do RSC-PCCTAE fica condicionada à comprovação de um ou mais dos seguintes requisitos, desenvolvidos <strong>no exercício do cargo</strong>:</p>
+    <div class="criterios-list" role="list">
+      <div class="crit-item" role="listitem"><div class="crit-num" aria-label="Critério I">I</div><div class="crit-desc"><strong>Participação em grupos, comissões e comitês</strong> — em grupos de trabalho, comissões, comitês, núcleos, representações ou similares, formalmente instituídos ou reconhecidos pelo órgão ou entidade.</div></div>
+      <div class="crit-item" role="listitem"><div class="crit-num" aria-label="Critério II">II</div><div class="crit-desc"><strong>Projetos institucionais</strong> — participação e atuação em projetos institucionais, na gestão, no apoio ao ensino, pesquisa, extensão, inovação e assistência especializada.</div></div>
+      <div class="crit-item" role="listitem"><div class="crit-num" aria-label="Critério III">III</div><div class="crit-desc"><strong>Premiações e reconhecimentos</strong> — recebimento de premiação em evento de reconhecimento público por projetos implementados na administração pública.</div></div>
+      <div class="crit-item" role="listitem"><div class="crit-num" aria-label="Critério IV">IV</div><div class="crit-desc"><strong>Responsabilidades técnico-administrativas</strong> — designação para assunção de responsabilidades técnico-administrativas e/ou especializadas.</div></div>
+      <div class="crit-item" role="listitem"><div class="crit-num" aria-label="Critério V">V</div><div class="crit-desc"><strong>Funções e cargos de direção</strong> — exercício de funções ou cargo de direção, ou de assessoramento institucionais.</div></div>
+      <div class="crit-item" role="listitem"><div class="crit-num" aria-label="Critério VI">VI</div><div class="crit-desc"><strong>Produção de conhecimento</strong> — produção, prospecção e difusão de conhecimento científico ou técnico.</div></div>
+    </div>
+    <div class="info-box-burgundy" role="note">
+      <strong>Escopo obrigatório:</strong> O RSC avalia exclusivamente atividades desenvolvidas <em>no exercício do cargo</em>, conforme o art. 12-B, §1º da Lei nº 11.091/2005. Cada atividade só pode ser utilizada uma única vez, vedada duplicidade entre critérios.
+    </div>
+  </div>
+</section>
+
+<!-- COMO REQUERER -->
+<section id="como" aria-labelledby="como-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Passo a passo</span>
+    <h2 class="section-title" id="como-title">Como Requerer o RSC-PCCTAE</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="info-box" role="note" style="margin-bottom:28px; margin-top:0;">
+      <strong>🕐 Procedimento em definição pela PROGEP/UFMA.</strong> As etapas internas de requerimento na UFMA serão definidas após a publicação do Decreto regulamentador e a instalação da CRSC-PCCTAE. As etapas a seguir são uma referência baseada na legislação vigente.
+    </div>
+    <!-- Bloco preparação prévia -->
+    <div class="prep-block" role="group" aria-labelledby="prep-title">
+      <div class="prep-header" id="prep-title">
+        <span>📋</span> Preparação Prévia — Já pode ser iniciada pelo servidor
+      </div>
+      <div class="prep-steps">
+        <div class="prep-step">
+          <div class="prep-step-num" aria-label="Passo 1">1</div>
+          <div>
+            <h5>Verifique a elegibilidade</h5>
+            <p>Confirme que não está em estágio probatório e que o interstício de 3 anos após a última concessão de Incentivo à Qualificação foi cumprido, conforme o art. 12-F da Lei nº 11.091/2005. Utilize a calculadora abaixo para verificar rapidamente.</p>
+          </div>
+        </div>
+        <div class="prep-step">
+          <div class="prep-step-num" aria-label="Passo 2">2</div>
+          <div>
+            <h5>Levante sua documentação</h5>
+            <p>Identifique as atividades desenvolvidas no exercício do cargo e organize os documentos comprobatórios. Utilize o <a href="#guia" style="color:var(--gold);font-weight:700;text-decoration:underline;">Guia de Levantamento de Documentos</a> disponível neste portal. Para simulação de pontuação, acesse também a <a href="https://www.calculadorarsc.com/" target="_blank" rel="noopener" style="color:var(--gold);font-weight:700;text-decoration:underline;">Calculadora RSC-TAE</a> (ferramenta externa de caráter informativo). Para solicitar cópia da pasta funcional digital, utilize o sistema GLPI da UFMA.</p>
+          </div>
+        </div>
+        <div class="prep-step">
+          <div class="prep-step-num" aria-label="Passo 3">3</div>
+          <div>
+            <h5>Elabore o Memorial</h5>
+            <p>Redija o memorial descrevendo sua trajetória profissional e individual, vinculando cada atividade aos requisitos previstos na Lei nº 11.091/2005. O memorial deve demonstrar que suas competências e saberes qualificam o exercício das atribuições do cargo além do desempenho habitual das funções típicas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bloco etapas em definição -->
+    <div class="pending-block" role="list">
+      <div class="step pending" role="listitem" aria-label="Etapa 4 — em definição pela PROGEP">
+        <div class="step-num" aria-label="Etapa 4">4</div>
+        <div>
+          <h4>Preenchimento do Requerimento <span class="step-pending-badge" aria-label="Em definição pela PROGEP">Em definição</span></h4>
+          <p>O requerimento e os procedimentos específicos de preenchimento na UFMA estão em fase de definição pela PROGEP. As orientações serão publicadas após a instalação da CRSC-PCCTAE e aprovação da regulamentação interna.</p>
+        </div>
+      </div>
+      <div class="step pending" role="listitem" aria-label="Etapa 5 — Abertura do Pedido na UFMA — em definição pela PROGEP">
+        <div class="step-num" aria-label="Etapa 5">5</div>
+        <div>
+          <h4>Abertura do Pedido na UFMA <span class="step-pending-badge" aria-label="Em definição pela PROGEP">Em definição</span></h4>
+          <p>O canal de protocolo e os procedimentos de instrução do pedido na UFMA estão em fase de definição. A PROGEP publicará as orientações detalhadas assim que os fluxos internos forem estabelecidos.</p>
+        </div>
+      </div>
+      <div class="step pending" role="listitem" aria-label="Etapa 6 — em definição pela PROGEP">
+        <div class="step-num" aria-label="Etapa 6">6</div>
+        <div>
+          <h4>Análise pela CRSC-PCCTAE <span class="step-pending-badge" aria-label="Em definição pela PROGEP">Em definição</span></h4>
+          <p>Os prazos, critérios de análise, ritos processuais da CRSC-PCCTAE serão definidos na regulamentação interna da UFMA, a ser elaborada após a publicação do Decreto regulamentador e a constituição da comissão.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTOS -->
+<section id="documentos" aria-labelledby="docs-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Comprovação</span>
+    <h2 class="section-title" id="docs-title">Documentos Comprobatórios Válidos</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <p class="section-lead">Para fins de comprovação dos critérios de reconhecimento, são considerados documentos válidos, entre outros, os seguintes tipos de comprovações:</p>
+    <div class="docs-grid" role="list">
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">📄</div><div>Portarias, declarações ou resoluções editadas e reconhecidas pela instituição</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">🎓</div><div>Diplomas, certificados ou declarações de conclusão</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">🔬</div><div>Comprovantes de produção técnica ou científica</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">🏅</div><div>Comprovantes de certificação técnica ou profissional</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">📚</div><div>Comprovantes de publicações de obras, artigos e produções intelectuais</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">📋</div><div>Portarias ou atos de designação ou de nomeação</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">📝</div><div>Atas ou relatórios que atestem a participação em comissão, grupos de trabalho, câmaras ou comitês</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">📊</div><div>Relatórios técnicos, protótipos, manuais, projetos ou termos de referência</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">🏆</div><div>Comprovantes de premiação ou de publicação institucional do reconhecimento</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">👨‍🏫</div><div>Declarações ou certificados de instrutoria, mentoria, orientação ou supervisão</div></div>
+      <div class="doc-item" role="listitem"><div class="doc-icon" aria-hidden="true">📁</div><div>Outros documentos institucionais pertinentes reconhecidos pela UFMA</div></div>
+    </div>
+    <div style="margin-top:32px;">
+      <a href="#guia" class="btn-primary">📁 Acessar o Guia Completo de Levantamento de Documentos</a>
+    </div>
+  </div>
+</section>
+
+<!-- LEGISLAÇÃO -->
+<section id="legislacao" aria-labelledby="legis-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Marco normativo</span>
+    <h2 class="section-title" id="legis-title">Legislação e Documentos de Referência</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="legis-grid">
+      <!-- Lei vigente -->
+      <div class="legis-card">
+        <div class="legis-tag">Lei Federal — Vigente</div>
+        <h3 style="font-size:15.5px;color:var(--burgundy-d);font-weight:700;margin-bottom:8px;line-height:1.4;">Lei nº 15.367, de 30 de março de 2026</h3>
+        <p>Institui formalmente o RSC-PCCTAE, inserindo os artigos 12-B a 12-I na Lei nº 11.091/2005. Vigência: 1º de abril de 2026. Norma principal do instituto.</p>
+        <a href="https://in.gov.br/en/web/dou/-/lei-n-15.367-de-30-de-marco-de-2026-696676817" target="_blank" aria-label="Acessar Lei nº 15.367/2026 no Diário Oficial da União (abre em nova aba)">🔗 Acessar no Planalto</a>
+      </div>
+      <!-- Lei de carreira -->
+      <div class="legis-card">
+        <div class="legis-tag">Lei de Carreira — Vigente</div>
+        <h3 style="font-size:15.5px;color:var(--burgundy-d);font-weight:700;margin-bottom:8px;line-height:1.4;">Lei nº 11.091, de 12 de janeiro de 2005</h3>
+        <p>Dispõe sobre a estruturação do Plano de Carreira dos Cargos Técnico-Administrativos em Educação (PCCTAE). Base legal do RSC-PCCTAE (arts. 12-B a 12-I).</p>
+        <a href="https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11091.htm" target="_blank" aria-label="Acessar Lei nº 11.091/2005 no Portal do Planalto (abre em nova aba)">🔗 Acessar no Planalto</a>
+      </div>
+      <!-- Decreto regulamentador -->
+      <div class="legis-card" style="background:#F9F6F1;border-style:dashed;opacity:0.9;">
+        <div class="legis-tag" style="background:#999;">Em Breve</div>
+        <h3 style="font-size:15.5px;color:#666;font-weight:700;margin-bottom:8px;line-height:1.4;">Decreto Regulamentador</h3>
+        <p style="color:#777;">Estabelecerá os critérios específicos de pontuação, os procedimentos de análise e o funcionamento da CRSC-PCCTAE. Ainda em elaboração — não publicado.</p>
+        <span style="font-size:14px;color:#999;font-style:italic;">🕐 Aguardando publicação</span>
+      </div>
+      <!-- Regulamentação interna UFMA -->
+      <div class="legis-card" style="background:#F9F6F1;border-style:dashed;opacity:0.9;">
+        <div class="legis-tag" style="background:#999;">Em Breve</div>
+        <h3 style="font-size:15.5px;color:#666;font-weight:700;margin-bottom:8px;line-height:1.4;">Regulamentação Interna da UFMA</h3>
+        <p style="color:#777;">Normas e procedimentos internos da UFMA para o recebimento, análise e concessão do RSC-PCCTAE. A ser editada pela UFMA após publicação do Decreto.</p>
+        <span style="font-size:14px;color:#999;font-style:italic;">🕐 Aguardando publicação do Decreto</span>
+      </div>
+      <!-- Regimento da comissão -->
+      <div class="legis-card" style="background:#F9F6F1;border-style:dashed;opacity:0.9;">
+        <div class="legis-tag" style="background:#999;">Em Breve</div>
+        <h3 style="font-size:15.5px;color:#666;font-weight:700;margin-bottom:8px;line-height:1.4;">Regimento da Comissão (CRSC-PCCTAE)</h3>
+        <p style="color:#777;">Regimento interno da Comissão para Reconhecimento de Saberes e Competências na UFMA, definindo quóruns, prazos e ritos processuais. A ser elaborado após a constituição da comissão.</p>
+        <span style="font-size:14px;color:#999;font-style:italic;">🕐 Aguardando constituição da CRSC-PCCTAE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIA -->
+<section id="guia" aria-labelledby="guia-title" style="background:var(--cream);">
+  <div class="section-inner reveal">
+    <div class="guia-block">
+      <div class="guia-text">
+        <h2 class="guia-text h3" id="guia-title" style="font-family:'Merriweather',serif;font-size:24px;color:var(--white);margin-bottom:12px;">📁 Guia para Levantamento de Documentos</h2>
+        <p>Acesse o guia completo elaborado pela PROGEP/UFMA para orientar os servidores na identificação, organização e comprovação das atividades passíveis de pontuação no RSC-PCCTAE. O guia detalha cada critério específico e os documentos necessários para a instrução do processo.</p>
+      </div>
+      <a href="#" class="guia-btn" aria-label="Acessar o Guia de Levantamento de Documentos do RSC-PCCTAE">Acessar o Guia →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" aria-labelledby="faq-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Dúvidas frequentes</span>
+    <h2 class="section-title" id="faq-title">Perguntas Frequentes</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <div class="faq-list" role="list">
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-1">Qual é o prazo para requerer um novo nível? Já posso solicitar?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-1" role="region">O interstício é de 3 anos, contado da data da última concessão do Incentivo à Qualificação, conforme o art. 12-F da Lei nº 11.091/2005. Utilize a <a href="#como" style="color:var(--gold);font-weight:700;">calculadora de interstício</a> disponível nesta página para verificar rapidamente. Atenção: os procedimentos internos da UFMA para protocolo dos pedidos ainda estão sendo definidos — acompanhe os comunicados da PROGEP.</div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>2. Posso incluir certificados e atividades realizadas fora do serviço público?</strong></div>
-        <div class="faq-a">Não. O RSC reconhece apenas <strong>atividades desenvolvidas no exercício do cargo</strong>, relacionadas diretamente com os saberes e competências exigidos para sua atuação. Atividades realizadas fora do contexto funcional não são computadas.</div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-2">A UFMA já tem comissão instalada para analisar os pedidos?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-2" role="region">A CRSC-PCCTAE (Comissão para Reconhecimento de Saberes e Competências) está em processo de constituição na UFMA. Sua composição depende da prévia instalação da Comissão Interna de Supervisão (CIS), também em andamento. A PROGEP publicará comunicados assim que a comissão for instalada e os procedimentos internos forem aprovados.</div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>3. Qual o prazo para a Comissão analisar meu pedido?</strong></div>
-        <div class="faq-a">A CRSC-PCCTAE tem até <strong>120 dias</strong> contados a partir do protocolo para concluir a análise. Se houver necessidade de complementação de documentação, o prazo é suspenso até a juntada dos documentos.</div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-3">O que é o memorial e como elaborá-lo?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-3" role="region">O memorial é o documento central do requerimento: descreve a trajetória profissional e individual do servidor desenvolvida ao longo da carreira, demonstrando saberes, competências e experiências relacionados ao nível de RSC pleiteado. Deve apresentar: (i) descrição das atividades vinculadas aos requisitos legais (incisos I a VI); e (ii) demonstração de que a trajetória se alinha ao padrão de conhecimentos que justificam o reconhecimento naquele nível. A CRSC-PCCTAE realiza análise de mérito do memorial e pode indeferir o pedido mesmo que os requisitos quantitativos sejam atendidos, mediante decisão fundamentada.</div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>4. Posso usar os mesmos documentos em pedidos diferentes?</strong></div>
-        <div class="faq-a">Não. Cada fato/atividade somente pode ser utilizado uma única vez. É <strong>vedada a duplicidade</strong> entre pedidos ou entre itens do mesmo pedido. Em caso de coincidência, prevalece o item definido pela Comissão mediante avaliação justificada.</div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-4">Como funciona a pontuação acumulada?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-4" role="region">A pontuação reconhecida tem caráter cumulativo: o saldo de pontos não aproveitado em uma concessão poderá ser utilizado em concessões futuras. Exemplo: se o servidor apresenta 22 pontos e o nível RSC-II exige 15, os 7 pontos excedentes são "levados" para a próxima concessão (RSC-III). Cada atividade só pode ser utilizada uma única vez, sendo vedada a duplicidade entre os critérios específicos.</div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>5. Existe prazo mínimo entre concessões do RSC?</strong></div>
-        <div class="faq-a">Sim. O interstício mínimo entre concessões será definido pelo Decreto regulamentador federal. Acompanhe a publicação do Decreto nesta página para obter a informação atualizada.</div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-5">O RSC-PCCTAE é a mesma coisa que o Incentivo à Qualificação?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-5" role="region">Não. O RSC-PCCTAE reconhece saberes adquiridos pela experiência prática no exercício do cargo, enquanto o Incentivo à Qualificação (IQ) remunera a titulação acadêmica formal (graduação, especialização, mestrado, doutorado). São institutos distintos, embora ambos integrem o PCCTAE e produzam efeitos via Incentivo à Qualificação.</div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>6. O RSC é cumulativo com progressão por qualificação?</strong></div>
-        <div class="faq-a">O RSC-PCCTAE é um mecanismo distinto das progressões funcionais e da retribuição por titulação. Suas regras de interação com outros benefícios da carreira estão sendo definidas no Decreto regulamentador. Para dúvidas específicas, consulte a PROGEP.</div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-6">Posso incluir atividades realizadas fora da UFMA ou antes de entrar na carreira?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-6" role="region">Não. O RSC avalia exclusivamente atividades desenvolvidas no exercício do cargo em IFE, conforme o art. 12-B, §1º da Lei nº 11.091/2005. Atividades realizadas em outros vínculos ou em período anterior ao ingresso na carreira não são elegíveis.</div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>7. O que acontece se meu pedido for indeferido?</strong></div>
-        <div class="faq-a">A decisão de indeferimento deve ser fundamentada em critérios objetivos. O servidor tem <strong>30 dias</strong> a partir da ciência ou divulgação oficial da decisão para interpor recurso, nos termos da Lei nº 9.784/1999.</div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-7">Posso usar atividades realizadas durante o estágio probatório?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-7" role="region">Sim. Atividades e experiências realizadas durante o estágio probatório podem ser consideradas, desde que tenham ocorrido no exercício do cargo. Porém, o RSC-PCCTAE não será concedido ao servidor enquanto ainda estiver em estágio probatório.</div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)"><strong>8. Quando a CRSC-PCCTAE da UFMA estará funcionando?</strong></div>
-        <div class="faq-a">As instituições federais de ensino têm até <strong>30 dias após a publicação do Decreto regulamentador</strong> para instaurar a CRSC-PCCTAE, aprovar as normas internas e iniciar os procedimentos de análise. A PROGEP está em fase de preparação para o cumprimento desse prazo.</div>
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-8">O RSC retroage à data do requerimento?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-8" role="region">Não. Os efeitos financeiros do Incentivo à Qualificação decorrentes da concessão do RSC-PCCTAE ocorrem a partir da data do deferimento, sem retroação à data do requerimento (art. 12-H da Lei nº 11.091/2005). Exceção: se o prazo legal de análise for ultrapassado pela comissão, os efeitos retroagem ao dia seguinte ao término do prazo.</div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-9">Quando o Decreto regulamentador será publicado?<span class="faq-arrow" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a-9" role="region">A PROGEP monitora o desenvolvimento do processo normativo e irá atualizar este portal assim que houver novidades.</div>
       </div>
 
     </div>
+  </div>
+</section>
 
+<!-- CONTATO -->
+<section id="contato" aria-labelledby="contato-title">
+  <div class="section-inner reveal">
+    <span class="section-label" aria-hidden="true">Atendimento</span>
+    <h2 class="section-title" id="contato-title">Contato e Suporte</h2>
+    <div class="divider" aria-hidden="true"></div>
+    <p class="section-lead">Para dúvidas específicas sobre o RSC-PCCTAE na UFMA, entre em contato com a PROGEP pelos canais abaixo:</p>
+    <div class="contato-grid">
+      <div class="contato-card">
+        <span class="contato-ico" aria-hidden="true">📧</span>
+        <h3 style="font-size:15px;font-weight:700;color:var(--burgundy-d);margin-bottom:8px;">E-mail</h3>
+        <p style="color:#999;font-style:italic;">🕐 Em breve</p>
+      </div>
+      <div class="contato-card">
+        <span class="contato-ico" aria-hidden="true">📞</span>
+        <h3 style="font-size:15px;font-weight:700;color:var(--burgundy-d);margin-bottom:8px;">Telefone</h3>
+        <p style="color:#999;font-style:italic;">🕐 Em breve</p>
+      </div>
+      <div class="contato-card">
+        <span class="contato-ico" aria-hidden="true">🏢</span>
+        <h3 style="font-size:15px;font-weight:700;color:var(--burgundy-d);margin-bottom:8px;">Endereço</h3>
+        <p>Av. dos Portugueses, 1966 – Bacanga<br>São Luís – MA, CEP 65080-805</p>
+      </div>
+      <div class="contato-card">
+        <span class="contato-ico" aria-hidden="true">🖥️</span>
+        <h3 style="font-size:15px;font-weight:700;color:var(--burgundy-d);margin-bottom:8px;">Portal PROGEP</h3>
+        <a href="https://portalpadrao.ufma.br/progep" target="_blank" aria-label="Acessar o Portal da PROGEP (abre em nova aba)">portalpadrao.ufma.br/progep</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-  </div><!-- /content -->
-</div><!-- /wrapper -->
+</main>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">PROGEP – <span>UFMA</span></div>
+      <div style="margin-top:6px;">Pró-Reitoria de Gestão de Pessoas · Universidade Federal do Maranhão</div>
+      <div style="margin-top:4px;">Conteúdo sob licença Creative Commons · Maio de 2026</div>
+    </div>
+    <nav aria-label="Links do rodapé">
+      <div class="footer-links">
+        <a href="https://portalpadrao.ufma.br/" target="_blank" rel="noopener">Portal UFMA</a>
+        <a href="https://sei.ufma.br/" target="_blank" rel="noopener">SEI</a>
+        <a href="https://sougov.sigepe.gov.br/sougov/" target="_blank" rel="noopener">SOUGOV</a>
+        <a href="https://falabr.cgu.gov.br/" target="_blank" rel="noopener">Transparência</a>
+        <a href="#">Legislação</a>
+      </div>
+    </nav>
+  </div>
+</footer>
 
 <script>
-function toggleFaq(el){
-  var a=el.nextElementSibling;
-  var open=a.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(function(x){x.classList.remove('open')});
-  document.querySelectorAll('.faq-q').forEach(function(x){x.classList.remove('open')});
-  if(!open){a.classList.add('open');el.classList.add('open')}
-}
-document.querySelectorAll('.menu-tile a').forEach(function(link){
-  link.addEventListener('click',function(e){
-    var href=this.getAttribute('href');
-    if(href&&href.startsWith('#')){
-      e.preventDefault();
-      var target=document.querySelector(href);
-      if(target){target.scrollIntoView({behavior:'smooth',block:'start'})}
+
+
+  // ── ACESSIBILIDADE: FONTE ──
+  let fonteAtual = 0;
+
+  function ajustarFonte(nivel) {
+    // Remove existing classes
+    document.body.classList.remove('fs-grande', 'fs-extra');
+    // Apply new class
+    if (nivel === 1) document.body.classList.add('fs-grande');
+    if (nivel === 2) document.body.classList.add('fs-extra');
+    fonteAtual = nivel;
+    // Update button states
+    const btns = [
+      { id: 'btn-normal', n: 0 },
+      { id: 'btn-maior',  n: 1 },
+      { id: 'btn-extra',  n: 2 },
+    ];
+    btns.forEach(function(b) {
+      var el = document.getElementById(b.id);
+      if (!el) return;
+      el.classList.toggle('active', b.n === nivel);
+      el.setAttribute('aria-pressed', b.n === nivel ? 'true' : 'false');
+    });
+    try { localStorage.setItem('rsc_fonte', nivel); } catch(e) {}
+  }
+
+  // ── ACESSIBILIDADE: CONTRASTE ──
+  function toggleContraste() {
+    const on = document.body.classList.toggle('hc');
+    const btn = document.getElementById('btn-contraste');
+    if (btn) {
+      btn.setAttribute('aria-pressed', on);
+      btn.classList.toggle('active', on);
+      btn.innerHTML = on ? '◯ Alto Contraste' : '⬤ Alto Contraste';
     }
+    try { localStorage.setItem('rsc_contraste', on ? '1' : '0'); } catch(e){}
+  }
+
+  // ── RESTAURAR PREFERÊNCIAS ──
+  (function() {
+    try {
+      const f = parseInt(localStorage.getItem('rsc_fonte') || '0');
+      const c = localStorage.getItem('rsc_contraste') === '1';
+      ajustarFonte(f);
+      if (c) toggleContraste();
+    } catch(e){}
+  })();
+
+  // ── MENU MOBILE ──
+  function toggleNav(btn) {
+    const nav = document.getElementById('main-nav');
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', !expanded);
+    nav.classList.toggle('open', !expanded);
+  }
+  // Close menu on link click (mobile)
+  document.querySelectorAll('.header-nav a').forEach(a => {
+    a.addEventListener('click', () => {
+      const nav = document.getElementById('main-nav');
+      const btn = document.querySelector('.nav-toggle');
+      nav.classList.remove('open');
+      if(btn) btn.setAttribute('aria-expanded','false');
+    });
   });
-});
+    // ── FAQ accordion acessível ──
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Active nav highlight ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.header-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 140) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      const active = a.getAttribute('href') === '#' + current;
+      a.classList.toggle('active', active);
+      a.setAttribute('aria-current', active ? 'page' : 'false');
+    });
+  });
 </script>
 </body>
 </html>
